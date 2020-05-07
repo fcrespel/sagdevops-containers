@@ -1,0 +1,41 @@
+alias: sag-msc-server
+description: Microservices Runtime Server
+
+environments:
+  default:
+    msc.license.key:     "*_MSC_10.*_*_*"
+    msc.instance.name:   default
+    msc.primary.port:    5555
+    msc.diagnostic.port: 9999
+    msc.jmx.port:        8075
+    msc.memory.init:     256
+    msc.memory.max:      256
+    msc.package.list:    WmCloudStreams,WmJDBCAdapter,WmKafkaAdapter
+    msc.fixes:           ALL
+
+layers:
+  runtime:
+    productRepo: ${repo.product}
+    fixRepo:     ${repo.fix}
+    templates:   msc-server
+
+templates:
+  msc-server:
+    licenses:
+      "IntegrationServer/config/licenseKey.xml": "${msc.license.key}"
+    fixes: ${msc.fixes}
+    products:
+      MSC:
+        ${msc.instance.name}:
+          primary.port:    ${msc.primary.port}
+          diagnostic.port: ${msc.diagnostic.port}
+          jmx.port:        ${msc.jmx.port}
+          license.file:    IntegrationServer/config/licenseKey.xml
+          package.list:    ${msc.package.list}
+      jdbcAdapter:  # WmJDBCAdapter
+      kafka:        # WmKafkaAdapter
+      wst:          # WmCloudStreams
+
+provision:
+  default:
+    runtime: ${nodes}

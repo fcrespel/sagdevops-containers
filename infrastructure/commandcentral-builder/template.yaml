@@ -1,0 +1,20 @@
+alias: sag-update
+description: Install latest fixes
+
+environments:
+  default:  
+    infra.fixes: ALL
+
+layers:
+  infra:
+    fixRepo: ${repo.fix}
+    templates:
+      - updates
+
+templates:
+  updates:
+    fixes: ${infra.fixes}
+
+provision:
+  default:
+    infra: ${nodes}

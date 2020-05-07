@@ -1,0 +1,48 @@
+alias: sag-apigateway-server
+description: API Gateway Server provisioning and configuration
+
+environments:
+  default:
+    agw.license.key:     "*_YAIAA_10.*_*_*"
+    agw.instance.name:   apigateway
+    agw.primary.port:    5555
+    agw.diagnostic.port: 9999
+    agw.jmx.port:        8075
+    agw.memory.init:     1024
+    agw.memory.max:      1024
+    agw.package.list:    WmAPIGateway
+    agw.fixes:           ALL
+
+layers:
+  runtime:
+    productRepo: ${repo.product}
+    fixRepo:     ${repo.fix}
+    templates:   agw-server
+
+templates:
+  agw-server:
+    licenses:
+      "IntegrationServer/config/licenseKey.xml": ${agw.license.key}
+    fixes: ${agw.fixes}
+    products:
+      YAI:
+      integrationServer:
+        ${agw.instance.name}:
+          primary.port:    ${agw.primary.port}
+          diagnostic.port: ${agw.diagnostic.port}
+          jmx.port:        ${agw.jmx.port}
+          license.file:    IntegrationServer/config/licenseKey.xml
+          package.list:    ${agw.package.list}
+          configuration:
+            OSGI-IS_${instance.name}:
+              COMMON-MEMORY:
+                COMMON-MEMORY:
+                  InitSize: ${agw.memory.init}
+                  MaxSize:  ${agw.memory.max}
+              COMMON-JAVASYSPROPS:
+                COMMON-JAVASYSPROPS: |
+                  test.cluster.withDerby=true
+
+provision:
+  default:
+    runtime: ${nodes}

@@ -1,0 +1,22 @@
+alias: sag-abe
+description: Asset Build Environment
+
+environments:
+  default:  
+    abe.fixes: ALL
+
+layers:
+  runtime:
+    productRepo: ${repo.product}
+    fixRepo:     ${repo.fix}
+    templates:   abe
+
+templates:
+  abe:
+    fixes: ${abe.fixes}
+    products:
+      acdl:
+
+provision:
+  default:
+    runtime: ${nodes}

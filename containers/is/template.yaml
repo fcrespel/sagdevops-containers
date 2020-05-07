@@ -1,0 +1,75 @@
+alias: sag-is-server
+description: Integration Server
+
+environments:
+  default:
+    is.license.key:     "*_PIE_10.*_*_*"
+    is.instance.name:   default
+    is.primary.port:    5555
+    is.diagnostic.port: 9999
+    is.jmx.port:        8075
+    is.memory.init:     1024
+    is.memory.max:      1024
+    is.package.list:    WmCloudStreams,WmJDBCAdapter,WmKafkaAdapter
+    is.fixes:           ALL
+
+layers:
+  runtime:
+    productRepo: ${repo.product}
+    fixRepo:     ${repo.fix}
+    templates:   is-server
+
+templates:
+  is-server:
+    licenses:
+      "IntegrationServer/config/licenseKey.xml": "${is.license.key}"
+    fixes: ${is.fixes}
+    products:
+      integrationServer:
+        ${is.instance.name}:
+          primary.port:    ${is.primary.port}
+          diagnostic.port: ${is.diagnostic.port}
+          jmx.port:        ${is.jmx.port}
+          license.file:    IntegrationServer/config/licenseKey.xml
+          package.list:    ${is.package.list}
+          configuration:
+            OSGI-IS_${instance.name}:
+              COMMON-MEMORY:
+                COMMON-MEMORY:
+                  InitSize: ${is.memory.init}
+                  MaxSize:  ${is.memory.max}
+            integrationServer-${instance.name}:
+              IS-RESOURCES:
+                IS-RESOURCES:
+                  Resources:
+                    ServerThreadPool:
+                      MaximumThreads: '500'
+                      MinimumThreads: '10'
+                      AvailableThreadsWarningThreshold: '15'
+                      SchedulerThreadThrottle: '75'
+                    Session:
+                      SessionTimeout: '5'
+                      EnableStatefulSessionLimit: 'true'
+                      MaximumStatefulSessions: '2147483647'
+                      AvailableStatefulSessionWarningThreshold: '25'
+                    XARecoverystore:
+                      StoreLocation: XAStore
+                      InitialStoreSize: '10'
+              IS-SYSPROPS:
+                IS-SYSPROPS:
+                  Settings: |
+                    watt.net.maxClientKeepaliveConns=40
+                    watt.net.timeout=30
+                    watt.server.audit.logFilesToKeep=7
+                    watt.server.http.returnException=webMethods
+                    watt.server.math.floatOperation.mode=dynamic
+                    watt.server.ns.hideWmRoot=false
+                    watt.server.serverlogFilesToKeep=7
+                    watt.server.stats.logFilesToKeep=7
+      jdbcAdapter:  # WmJDBCAdapter
+      kafka:        # WmKafkaAdapter
+      wst:          # WmCloudStreams
+
+provision:
+  default:
+    runtime: ${nodes}

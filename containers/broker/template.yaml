@@ -1,0 +1,38 @@
+alias: sag-broker
+description: Broker Server
+
+environments:
+  default:
+    install.dir:                  /opt/softwareag
+    broker.license.key:           "*_PIF_10.*_*_*"
+    broker.instance.name:         default
+    broker.port:                  6849
+    broker.data.dir:              ${install.dir}/Broker/data/${broker.instance.name}
+    broker.fixes:                 ALL
+    actions:
+      createBrokerServer.sh:
+        description: Create Broker server instance
+        script: |
+          #!/bin/sh
+          if [ ! -d "${broker.data.dir}" ]; then
+            mkdir -p "${broker.data.dir}"
+            ${install.dir}/Broker/bin/server_config create ${broker.data.dir} -p ${broker.port} -k ${install.dir}/Broker/license.xml -nostart
+          fi
+
+layers:
+  runtime:
+    productRepo: ${repo.product}
+    fixRepo:     ${repo.fix}
+    templates:   broker
+
+templates:
+  broker:
+    licenses:
+      "Broker/license.xml": ${broker.license.key}
+    fixes: ${broker.fixes}
+    products:
+      Broker:
+
+provision:
+  default:
+    runtime: ${nodes}

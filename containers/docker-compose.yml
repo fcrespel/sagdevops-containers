@@ -1,0 +1,111 @@
+version: "3.2"
+
+services:
+  # Command Central
+  cc:
+    image: ${REG}/commandcentral-builder:${TAG}
+    ports:
+      - "8091:8091" # CCE
+      - "8092:8092" # SPM
+
+  # Hello World sample
+  hello-world:
+    image: ${REG}/hello-world:${TAG}
+    build:
+      context: hello-world/
+      args:
+        - BUILDER_IMAGE=${REG}/commandcentral-builder:${TAG}
+        - BASE_IMAGE=${REG}/java:${TAG}
+        - __hello_name=Container        # container specific build ARG
+    hostname: hello-world
+    environment:
+      - CC_AUTO_REGISTER
+      - HELLO_NAME=CONTAINER_INSTANCE   # container specific ENV var
+
+  # Asset Build Environment
+  abe:
+    image: ${REG}/abe:${TAG}
+    build:
+      context: abe/
+      args:
+        - BUILDER_IMAGE=${REG}/commandcentral-builder:${TAG}
+        - BASE_IMAGE=${REG}/java:${TAG}
+
+  # API Gateway
+  apigw:
+    image: ${REG}/apigw:${TAG}
+    build:
+      context: apigw/
+      args:
+        - BUILDER_IMAGE=${REG}/commandcentral-builder:${TAG}
+        - BASE_IMAGE=${REG}/java:${TAG}
+    ports:
+      - "6555:5555"
+      - "9072:9072"
+    hostname: apigw
+    environment:
+      - CC_AUTO_REGISTER
+    depends_on:
+      - cc
+
+  # Broker Server
+  broker:
+    image: ${REG}/broker:${TAG}
+    build:
+      context: broker/
+      args:
+        - BUILDER_IMAGE=${REG}/commandcentral-builder:${TAG}
+        - BASE_IMAGE=${REG}/java:${TAG}
+    hostname: broker
+    environment:
+      - CC_AUTO_REGISTER
+    depends_on:
+      - cc
+
+  # Integration Server
+  is:
+    image: ${REG}/is:${TAG}
+    build:
+      context: is/
+      args:
+        - BUILDER_IMAGE=${REG}/commandcentral-builder:${TAG}
+        - BASE_IMAGE=${REG}/java:${TAG}
+    ports:
+      - "5555:5555"
+    hostname: is
+    environment:
+      - CC_AUTO_REGISTER
+    depends_on:
+      - cc
+
+  # Microservices Runtime
+  msr:
+    image: ${REG}/msr:${TAG}
+    build:
+      context: msr/
+      args:
+        - BUILDER_IMAGE=${REG}/commandcentral-builder:${TAG}
+        - BASE_IMAGE=${REG}/java:${TAG}
+    ports:
+      - "5556:5555"
+    hostname: msr
+    environment:
+      - CC_AUTO_REGISTER
+    depends_on:
+      - cc
+
+  # Universal Messaging
+  um:
+    image: ${REG}/um:${TAG}
+    build:
+      context: um/
+      args:
+        - BUILDER_IMAGE=${REG}/commandcentral-builder:${TAG}
+        - BASE_IMAGE=${REG}/java:${TAG}
+    ports:
+      - "9000:9000"
+    hostname: um
+    environment:
+      - CC_AUTO_REGISTER
+    depends_on:
+      - cc
