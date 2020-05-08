@@ -1,0 +1,67 @@
+image: docker/compose
+
+variables:
+  DOCKER_HUB_USERNAME: toComplete
+  DOCKER_HUB_PASSWORD: toComplete
+  DOCKER_REGISTRY_USERNAME: toComplete
+  DOCKER_REGISTRY_PASSWORD: toComplete
+  DOCKER_REGISTRY: docker.crespel.me
+  DOCKER_REPO: sag
+  REG: ${DOCKER_REGISTRY}/${DOCKER_REPO}
+  EMPOWER_USR: toComplete
+  EMPOWER_PSW: toComplete
+  LICENSES_URL: toComplete
+
+services:
+  - docker:dind
+
+stages:
+- build_infra
+- build_containers
+
+default:
+  before_script:
+    - docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}
+    - docker login -u ${DOCKER_REGISTRY_USERNAME} -p ${DOCKER_REGISTRY_PASSWORD} ${DOCKER_REGISTRY}
+  
+build_infra:
+  stage: build_infra
+  script:
+    - cd infrastructure
+    - docker-compose build
+    - docker-compose push
+
+build_abe:
+  stage: build_containers
+  script:
+    - cd containers
+    - docker-compose build abe
+    - docker-compose push abe
+
+build_apigw:
+  stage: build_containers
+  script:
+    - cd containers
+    - docker-compose build apigw
+    - docker-compose push apigw
+
+build_broker:
+  stage: build_containers
+  script:
+    - cd containers
+    - docker-compose build broker
+    - docker-compose push broker
+
+build_is:
+  stage: build_containers
+  script:
+    - cd containers
+    - docker-compose build is
+    - docker-compose push is
+
+build_um:
+  stage: build_containers
+  script:
+    - cd containers
+    - docker-compose build um
+    - docker-compose push um
