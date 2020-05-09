@@ -1,0 +1,119 @@
+name: CI
+
+on: [push]
+
+env:
+  DOCKER_REGISTRY: docker.crespel.me
+  DOCKER_REPO: sag
+
+jobs:
+  build_infra:
+    runs-on: ubuntu-latest
+    env:
+      EMPOWER_USR: ${{ secrets.EMPOWER_USR }}
+      EMPOWER_PSW: ${{ secrets.EMPOWER_PSW }}
+      LICENSES_URL: ${{ secrets.LICENSES_URL }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Docker
+      run: |
+        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+        docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
+        echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
+    - name: Build images
+      working-directory: infrastructure
+      run: docker-compose build
+    - name: Publish images
+      working-directory: infrastructure
+      run: docker-compose push
+
+  build_abe:
+    runs-on: ubuntu-latest
+    needs: build_infra
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Docker
+      run: |
+        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+        docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
+        echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
+    - name: Build image
+      working-directory: containers
+      run: docker-compose build abe
+    - name: Publish image
+      working-directory: containers
+      run: docker-compose push abe
+
+  build_apigw:
+    runs-on: ubuntu-latest
+    needs: build_infra
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Docker
+      run: |
+        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+        docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
+        echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
+    - name: Build image
+      working-directory: containers
+      run: docker-compose build apigw
+    - name: Publish image
+      working-directory: containers
+      run: docker-compose push apigw
+
+  build_broker:
+    runs-on: ubuntu-latest
+    needs: build_infra
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Docker
+      run: |
+        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+        docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
+        echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
+    - name: Build image
+      working-directory: containers
+      run: docker-compose build broker
+    - name: Publish image
+      working-directory: containers
+      run: docker-compose push broker
+
+  build_is:
+    runs-on: ubuntu-latest
+    needs: build_infra
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Docker
+      run: |
+        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+        docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
+        echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
+    - name: Build image
+      working-directory: containers
+      run: docker-compose build is
+    - name: Publish image
+      working-directory: containers
+      run: docker-compose push is
+
+  build_um:
+    runs-on: ubuntu-latest
+    needs: build_infra
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Docker
+      run: |
+        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+        docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
+        echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
+    - name: Build image
+      working-directory: containers
+      run: docker-compose build um
+    - name: Publish image
+      working-directory: containers
+      run: docker-compose push um
