@@ -26,8 +26,8 @@ You will also need Empower credentials with access to the products you want to b
 
 Go to the `infrastructure` directory and prepare your environment:
 
-- Edit the `.env` file to fill in your Empower credentials (be careful, never commit them to GitHub!)
-- In the `commandcentral-builder/licenses` subdirectory, create a `product_licenses.zip` file containing your license XML files.
+- Edit the `.env` file to fill in your Empower credentials (be careful, never commit them to GitHub!). Alternatively, you may also set them in your terminal with `export EMPOWER_USR=your-username` and `export EMPOWER_PSW=your-password`.
+- In the `commandcentral-builder/licenses` subdirectory, create a `product_licenses.zip` file containing your license XML files. Alternatively, you may also set a `LICENSES_URL` environment variable to have it downloaded automatically during the build.
 
 Then execute `docker-compose build` from the `infrastructure` directory to build 3 images:
 
@@ -52,6 +52,12 @@ Go to the `containers` directory and execute `docker-compose build <product>` to
 Each directory contains a `Dockerfile` using multi-stage build to provision the product using the `commandcentral-builder` image and a `template.yaml` file, then copy the installation directory on top of the `java` image. The latest fixes are applied by default. The `entrypoint.sh` script starts the main product runtime.
 
 For more information about Command Central templates, please see the [official documentation](https://documentation.softwareag.com/webmethods/command_central/cce10-5/10-5_Command_Central_webhelp/index.html).
+
+### Using Continuous Integration (CI) tools
+
+Popular CI tools such as GitLab, Jenkins, or GitHub Actions can also be setup to build and push the images automatically whenever a commit is made.
+
+Examples are provided for GitLab (see `.gitlab-ci.yml`) and GitHub Actions (see `.github/workflows/ci.yml`).
 
 ## Running
 
