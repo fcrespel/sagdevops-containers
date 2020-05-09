@@ -8,8 +8,8 @@ environments:
     agw.primary.port:    5555
     agw.diagnostic.port: 9999
     agw.jmx.port:        8075
-    agw.memory.init:     1024
-    agw.memory.max:      1024
+    agw.memory.init:     512
+    agw.memory.max:      512
     agw.package.list:    WmAPIGateway
     agw.fixes:           ALL
 
