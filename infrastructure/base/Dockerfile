@@ -6,6 +6,11 @@ ARG BASE_IMAGE
 # Target image
 FROM $BASE_IMAGE
 
+# Install packages and updates
+RUN yum -y update &&\
+    yum -y install file iproute less which &&\
+    yum -y clean all
+
 # Set install directory
 ENV SAG_HOME=/opt/softwareag
 
