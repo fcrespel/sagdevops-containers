@@ -100,6 +100,24 @@ jobs:
       working-directory: containers
       run: docker-compose push is
 
+  build_msr:
+    runs-on: ubuntu-latest
+    needs: build_infra
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Docker
+      run: |
+        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+        docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
+        echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
+    - name: Build image
+      working-directory: containers
+      run: docker-compose build msr
+    - name: Publish image
+      working-directory: containers
+      run: docker-compose push msr
+
   build_um:
     runs-on: ubuntu-latest
     needs: build_infra
