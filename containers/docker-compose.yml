@@ -45,8 +45,6 @@ services:
     hostname: apigw
     environment:
       - CC_AUTO_REGISTER
-    depends_on:
-      - cc
 
   # Broker Server
   broker:
@@ -59,8 +57,6 @@ services:
     hostname: broker
     environment:
       - CC_AUTO_REGISTER
-    depends_on:
-      - cc
 
   # Integration Server
   is:
@@ -75,8 +71,6 @@ services:
     hostname: is
     environment:
       - CC_AUTO_REGISTER
-    depends_on:
-      - cc
 
   # Microservices Runtime
   msr:
@@ -91,8 +85,6 @@ services:
     hostname: msr
     environment:
       - CC_AUTO_REGISTER
-    depends_on:
-      - cc
 
   # Universal Messaging
   um:
@@ -107,5 +99,3 @@ services:
     hostname: um
     environment:
       - CC_AUTO_REGISTER
-    depends_on:
-      - cc
