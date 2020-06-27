@@ -21,7 +21,8 @@ ADD --chown=1724:1724 . $CC_HOME
 RUN mv $SAG_HOME/jvm/jvm $SAG_HOME/jvm/jvm_tmp && \
     mv $SAG_HOME/jvm/jvm_tmp $SAG_HOME/jvm/jvm && \
     $CC_HOME/provision.sh && \
-    rm -Rf $SAG_HOME/jvm/*.bck
+    rm -Rf $SAG_HOME/jvm/*.bck && \
+    rm -f $SAG_HOME/jvm/jvm/src.zip
 
 # Automatically add files when using this image for build
 ONBUILD ADD --chown=1724:1724 . $CC_HOME
