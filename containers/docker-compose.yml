@@ -78,6 +78,7 @@ services:
     hostname: is
     environment:
       - CC_AUTO_REGISTER
+    stop_grace_period: 30s
 
   # Microservices Runtime
   msr:

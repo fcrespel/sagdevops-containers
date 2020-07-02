@@ -39,33 +39,28 @@ templates:
                   InitSize: ${is.memory.init}
                   MaxSize:  ${is.memory.max}
             integrationServer-${instance.name}:
-              IS-RESOURCES:
-                IS-RESOURCES:
-                  Resources:
-                    ServerThreadPool:
-                      MaximumThreads: '500'
-                      MinimumThreads: '10'
-                      AvailableThreadsWarningThreshold: '15'
-                      SchedulerThreadThrottle: '75'
-                    Session:
-                      SessionTimeout: '5'
-                      EnableStatefulSessionLimit: 'true'
-                      MaximumStatefulSessions: '2147483647'
-                      AvailableStatefulSessionWarningThreshold: '25'
-                    XARecoverystore:
-                      StoreLocation: XAStore
-                      InitialStoreSize: '10'
               IS-SYSPROPS:
                 IS-SYSPROPS:
                   Settings: |
+                    watt.core.validation.skipAbsentStarBody=true
+                    watt.debug.level=Info
                     watt.net.maxClientKeepaliveConns=40
-                    watt.net.timeout=30
+                    watt.net.proxySkipList=localhost,127.0.0.1,10.*,192.168.*
+                    watt.net.timeout=60
                     watt.server.audit.logFilesToKeep=7
+                    watt.server.checkWhitelist=false
+                    watt.server.clientTimeout=5
+                    watt.server.http.preserveUriReservedChars=false
                     watt.server.http.returnException=webMethods
+                    watt.server.jms.trigger.stopRequestTimeout=70
+                    watt.server.jms.trigger.threadPoolThrottle=70
+                    watt.server.log.alertMaxEntries=5000
+                    watt.server.log.maxEntries=500
                     watt.server.math.floatOperation.mode=dynamic
                     watt.server.ns.hideWmRoot=false
                     watt.server.serverlogFilesToKeep=7
                     watt.server.stats.logFilesToKeep=7
+                    watt.server.threadPool=500
       jdbcAdapter:  # WmJDBCAdapter
       kafka:        # WmKafkaAdapter
       wst:          # WmCloudStreams

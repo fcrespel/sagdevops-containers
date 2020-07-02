@@ -27,4 +27,9 @@ fi
 echo "Verifying product runtime ..."
 curl -sf http://`hostname`:5555/invoke/wm.server/ping
 
+if [ -d $SAG_HOME/profiles/SPM ] ; then
+    echo "Shut down the instance ..."
+    sagcc exec lifecycle components "OSGI-IS_${__is_instance_name}" stop -e DONE --sync-job
+fi
+
 echo "DONE testing"
