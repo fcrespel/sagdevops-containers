@@ -45,6 +45,7 @@ services:
     hostname: apigw
     environment:
       - CC_AUTO_REGISTER
+    stop_grace_period: 30s
 
   # Broker Server
   broker:

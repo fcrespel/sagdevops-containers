@@ -31,4 +31,9 @@ curl -sf http://`hostname`:5555/invoke/wm.server/ping
 echo "Verifying API Gateway ..."
 curl -sf -u Administrator:manage http://`hostname`:9072/
 
+if [ -d $SAG_HOME/profiles/SPM ] ; then
+    echo "Shut down the instance ..."
+    sagcc exec lifecycle components "OSGI-IS_${__agw_instance_name}" stop -e DONE --sync-job
+fi
+
 echo "DONE testing"
