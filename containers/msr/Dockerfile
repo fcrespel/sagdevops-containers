@@ -15,11 +15,13 @@ RUN $CC_HOME/provision.sh && $CC_HOME/test.sh && $CC_HOME/cleanup.sh && \
 FROM $BASE_IMAGE
 
 # Expose ports
-EXPOSE 5555 9999 8075 8092 8093
+EXPOSE 5555 9999 9192 8092 8093
 
 # Copy install directory from builder image
 COPY --from=builder --chown=1724:1724 $SAG_HOME/ $SAG_HOME/
 
+# Add overlay from target directory
+ADD --chown=1724:1724 target/* $SAG_HOME/
+
 # Entrypoint script
-ADD --chown=1724:1724 entrypoint.sh $SAG_HOME/
-ENTRYPOINT $SAG_HOME/entrypoint.sh
+ENTRYPOINT ["/opt/softwareag/entrypoint.sh"]

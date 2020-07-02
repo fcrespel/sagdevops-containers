@@ -93,6 +93,12 @@ services:
     hostname: msr
     environment:
       - CC_AUTO_REGISTER
+      - JAVA_MIN_MEM=512m
+      - JAVA_MAX_MEM=512m
+    volumes:
+      - '../data/msr/autodeploy:/opt/softwareag/IntegrationServer/replicate/autodeploy'
+      - '../data/msr/application.properties:/opt/softwareag/IntegrationServer/application.properties'
+    stop_grace_period: 30s
 
   # Universal Messaging
   um:
