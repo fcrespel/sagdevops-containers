@@ -25,4 +25,4 @@ RUN mv $SAG_HOME/jvm/jvm $SAG_HOME/jvm/jvm_tmp && \
     rm -f $SAG_HOME/jvm/jvm/src.zip
 
 # Automatically add files when using this image for build
-ONBUILD ADD --chown=1724:1724 . $CC_HOME
+ONBUILD ADD --chown=1724:1724 builder/* $CC_HOME/
