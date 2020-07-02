@@ -114,3 +114,4 @@ services:
     hostname: um
     environment:
       - CC_AUTO_REGISTER
+    stop_grace_period: 30s

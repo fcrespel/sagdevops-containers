@@ -24,4 +24,9 @@ if [ -d $SAG_HOME/profiles/SPM ] ; then
     sagcc get monitoring runtimestatus Universal-Messaging-${__um_instance_name} -e ONLINE
 fi
 
+if [ -d $SAG_HOME/profiles/SPM ] ; then
+    echo "Shut down the instance ..."
+    sagcc exec lifecycle components Universal-Messaging-${__um_instance_name} stop -e DONE --sync-job
+fi
+
 echo "DONE testing"
