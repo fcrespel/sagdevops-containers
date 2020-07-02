@@ -1,0 +1,25 @@
+alias: sag-broker
+description: Broker Server
+
+environments:
+  default:
+    broker.license.key: "*_PIF_10.*_*_*"
+    broker.fixes:       ALL
+
+layers:
+  runtime:
+    productRepo: ${repo.product}
+    fixRepo:     ${repo.fix}
+    templates:   broker
+
+templates:
+  broker:
+    licenses:
+      "Broker/license.xml": ${broker.license.key}
+    fixes: ${broker.fixes}
+    products:
+      Broker:
+
+provision:
+  default:
+    runtime: ${nodes}

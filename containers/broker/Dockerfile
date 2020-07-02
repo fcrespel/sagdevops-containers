@@ -19,6 +19,17 @@ EXPOSE 6849 6850
 # Copy install directory from builder image
 COPY --from=builder --chown=1724:1724 $SAG_HOME/ $SAG_HOME/
 
+# Add overlay from target directory
+ADD --chown=1724:1724 target/* $SAG_HOME/
+
+# Environment variables
+ENV BROKER_DATA_DIR="$SAG_HOME/Broker/data" \
+    BROKER_CONFIG_SIZE="1G" \
+    BROKER_CONFIG_PARAMS="" \
+    BROKER_DATA_SIZE="4G" \
+    BROKER_DATA_PARAMS="async,max_cache_size=512" \
+    BROKER_SERVER_PARAMS="max-memory-size=1024 max-recv-events=400" \
+    BROKER_NAME="default"
+
 # Entrypoint script
-ADD --chown=1724:1724 entrypoint.sh $SAG_HOME/
-ENTRYPOINT $SAG_HOME/entrypoint.sh
+ENTRYPOINT ["/opt/softwareag/entrypoint.sh"]

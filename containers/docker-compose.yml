@@ -54,9 +54,16 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/commandcentral-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+    ports:
+      - "6849:6849"
     hostname: broker
     environment:
       - CC_AUTO_REGISTER
+      - BROKER_CONFIG_SIZE=64M
+      - BROKER_DATA_SIZE=512M
+    volumes:
+      - '../data/broker:/opt/softwareag/Broker/data'
+    stop_grace_period: 30s
 
   # Integration Server
   is:
