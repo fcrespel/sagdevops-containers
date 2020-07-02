@@ -22,9 +22,11 @@ EXPOSE 8092 8093
 # Copy install directory from builder image
 COPY --from=builder --chown=1724:1724 $SAG_HOME/ $SAG_HOME/
 
+# Add overlay from target directory
+ADD --chown=1724:1724 target/* $SAG_HOME/
+
 # Run-time container init parameter
 ENV HELLO_NAME=default
 
 # Entrypoint script
-ADD --chown=1724:1724 entrypoint.sh $SAG_HOME/
-ENTRYPOINT $SAG_HOME/entrypoint.sh
+ENTRYPOINT ["/opt/softwareag/entrypoint.sh"]
