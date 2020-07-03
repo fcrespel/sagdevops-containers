@@ -114,4 +114,6 @@ services:
     hostname: um
     environment:
       - CC_AUTO_REGISTER
+    volumes:
+      - '../data/um:/opt/softwareag/UniversalMessaging/server/default/data'
     stop_grace_period: 30s
