@@ -95,7 +95,9 @@ jobs:
         echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
     - name: Build image
       working-directory: containers
-      run: docker-compose build ids
+      run: |
+        sudo sysctl -w vm.max_map_count=262144
+        docker-compose build ids
     - name: Publish image
       working-directory: containers
       run: docker-compose push ids
