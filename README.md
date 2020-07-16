@@ -31,9 +31,9 @@ Go to the `infrastructure` directory and prepare your environment:
 
 Then execute `docker-compose build` from the `infrastructure` directory to build 3 images:
 
-- `base` : a simple CentOS 7 base layer with the `/opt/softwareag` install directory and `sagadmin` system user.
-- `java` : an image with the JVM provided with SoftwareAG products, built on top of the `base` image. This image is used to share the JVM layer between subsequent product images. It is copied from the following image.
-- `commandcentral-builder` : this image includes Command Central and Platform Manager (SPM) in `/opt/sagtools`, which allow installing additional products according to templates. It also contains an initial `/opt/softwareag` directory with infrastructure components such as the JVM, shared libraries and SPM. Upon build, product/fix repositories and licenses will be automatically added to Command Central, and the latest fixes applied to the `/opt/softwareag` installation.
+- `base`: a simple CentOS 7 base layer with the `/opt/softwareag` install directory and `sagadmin` system user.
+- `java`: an image with the JVM provided with SoftwareAG products, built on top of the `base` image. This image is used to share the JVM layer between subsequent product images. It is copied from the following image.
+- `commandcentral-builder`: this image includes Command Central and Platform Manager (SPM) in `/opt/sagtools`, which allow installing additional products according to templates. It also contains an initial `/opt/softwareag` directory with infrastructure components such as the JVM, shared libraries and SPM. Upon build, product/fix repositories and licenses will be automatically added to Command Central, and the latest fixes applied to the `/opt/softwareag` installation.
 
 Once these images are built successfully, you may proceed with building individual product images.
 
@@ -41,13 +41,14 @@ Once these images are built successfully, you may proceed with building individu
 
 Go to the `containers` directory and execute `docker-compose build <product>` to create an image for one of the following products:
 
-- `hello-world` : a simple Hello World showing build arguments and environment variables.
-- `abe` : Asset Build Environment
-- `apigw` : API Gateway (with embedded Elasticsearch)
-- `broker` : Broker Server
-- `is` : Integration Server (with CloudStreams, JDBC and Kafka Adapters)
-- `msr` : Microservices Runtime (with CloudStreams, JDBC and Kafka Adapters)
-- `um` : Universal Messaging
+- `hello-world`: a simple Hello World showing build arguments and environment variables.
+- `abe`: Asset Build Environment
+- `apigw`: API Gateway
+- `broker`: Broker Server
+- `ids`: Internal Data Store (Elasticsearch)
+- `is`: Integration Server (with CloudStreams, JDBC and Kafka Adapters)
+- `msr`: Microservices Runtime (with CloudStreams, JDBC and Kafka Adapters)
+- `um`: Universal Messaging
 
 Each directory contains a `Dockerfile` using multi-stage build to provision the product using the `commandcentral-builder` image and a `template.yaml` file, then copy the installation directory on top of the `java` image. The latest fixes are applied by default. The `entrypoint.sh` script starts the main product runtime.
 

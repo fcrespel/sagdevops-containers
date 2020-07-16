@@ -66,6 +66,32 @@ services:
       - '../data/broker:/opt/softwareag/Broker/data'
     stop_grace_period: 30s
 
+  # Internal Data Store (Elasticsearch)
+  ids:
+    image: ${REG}/ids:${TAG}
+    build:
+      context: ids/
+      args:
+        - BUILDER_IMAGE=${REG}/commandcentral-builder:${TAG}
+        - BASE_IMAGE=${REG}/java:${TAG}
+    ports:
+      - "9240:9240"
+    hostname: ids
+    environment:
+      - CC_AUTO_REGISTER
+      - node.name=ids
+      - discovery.seed_hosts=ids:9340
+      - cluster.initial_master_nodes=ids
+      - bootstrap.memory_lock=true
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+    volumes:
+      - '../data/ids:/opt/softwareag/InternalDataStore/data'
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    stop_grace_period: 30s
+
   # Integration Server
   is:
     image: ${REG}/is:${TAG}

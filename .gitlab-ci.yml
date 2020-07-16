@@ -52,6 +52,13 @@ build_broker:
     - docker-compose build broker
     - docker-compose push broker
 
+build_ids:
+  stage: build_containers
+  script:
+    - cd containers
+    - docker-compose build ids
+    - docker-compose push ids
+
 build_is:
   stage: build_containers
   script:

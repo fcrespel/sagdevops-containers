@@ -1,0 +1,22 @@
+alias: sag-internaldatastore
+description: Internal Data Store provisioning and cluster configuration
+
+environments:
+  default:
+    ids.fixes: ALL
+
+layers:
+  runtime:
+    productRepo: ${repo.product}
+    fixRepo:     ${repo.fix}
+    templates:   ids
+
+templates:
+  ids:
+    fixes: ${ids.fixes}
+    products:
+      CEL:
+
+provision:
+  default:
+    runtime: ${nodes}
