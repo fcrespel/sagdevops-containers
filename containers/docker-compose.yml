@@ -45,6 +45,7 @@ services:
     hostname: apigw
     environment:
       - CC_AUTO_REGISTER
+      - apigw_elasticsearch_hosts=ids:9240
     stop_grace_period: 30s
 
   # Broker Server
