@@ -26,7 +26,7 @@ You will also need Empower credentials with access to the products you want to b
 
 Go to the `infrastructure` directory and prepare your environment:
 
-- Edit the `.env` file to fill in your Empower credentials (be careful, never commit them to GitHub!). Alternatively, you may also set them in your terminal with `export EMPOWER_USR=your-username` and `export EMPOWER_PSW=your-password`.
+- Edit the `.env` file to fill in your Empower credentials (be careful, never commit them to GitHub!). Alternatively, you may also set them in your terminal with `export REPO_USERNAME=your-username` and `export REPO_PASSWORD=your-password`.
 - In the `commandcentral-builder/licenses` subdirectory, create a `product_licenses.zip` file containing your license XML files. Alternatively, you may also set a `LICENSES_URL` environment variable to have it downloaded automatically during the build.
 
 Then execute `docker-compose build` from the `infrastructure` directory to build 3 images:

@@ -10,8 +10,10 @@ jobs:
   build_infra:
     runs-on: ubuntu-latest
     env:
-      EMPOWER_USR: ${{ secrets.EMPOWER_USR }}
-      EMPOWER_PSW: ${{ secrets.EMPOWER_PSW }}
+      REPO_PRODUCT_URL: ${{ secrets.REPO_PRODUCT_URL }}
+      REPO_FIX_URL: ${{ secrets.REPO_FIX_URL }}
+      REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
+      REPO_PASSWORD: ${{ secrets.REPO_PASSWORD }}
       LICENSES_URL: ${{ secrets.LICENSES_URL }}
     steps:
     - name: Checkout
@@ -20,7 +22,9 @@ jobs:
       run: |
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
-        echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
+        echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
+        echo "REPO_PRODUCT_URL=${REPO_PRODUCT_URL:-https://sdc.softwareag.com/dataservewebM105/repository}" >> $GITHUB_ENV
+        echo "REPO_FIX_URL=${REPO_FIX_URL:-https://sdc.softwareag.com/updates/prodRepo}" >> $GITHUB_ENV
     - name: Build images
       working-directory: infrastructure
       run: docker-compose build
@@ -38,7 +42,7 @@ jobs:
       run: |
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
-        echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
+        echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: docker-compose build abe
@@ -56,7 +60,7 @@ jobs:
       run: |
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
-        echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
+        echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: docker-compose build apigw
@@ -74,7 +78,7 @@ jobs:
       run: |
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
-        echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
+        echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: docker-compose build broker
@@ -92,7 +96,7 @@ jobs:
       run: |
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
-        echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
+        echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: |
@@ -112,7 +116,7 @@ jobs:
       run: |
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
-        echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
+        echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: docker-compose build is
@@ -130,7 +134,7 @@ jobs:
       run: |
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
-        echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
+        echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: docker-compose build msr
@@ -148,7 +152,7 @@ jobs:
       run: |
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
-        echo "::set-env name=REG::${DOCKER_REGISTRY}/${DOCKER_REPO}"
+        echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: docker-compose build um
