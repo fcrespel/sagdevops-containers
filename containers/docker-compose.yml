@@ -106,6 +106,8 @@ services:
     hostname: is
     environment:
       - CC_AUTO_REGISTER
+      - JAVA_MIN_MEM=512
+      - JAVA_MAX_MEM=512
     stop_grace_period: 30s
 
   # Microservices Runtime

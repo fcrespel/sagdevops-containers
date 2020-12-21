@@ -9,6 +9,7 @@ FROM $BUILDER_IMAGE as builder
 
 # Provision, unit test, cleanup
 RUN $CC_HOME/provision.sh && $CC_HOME/test.sh && $CC_HOME/cleanup.sh && \
+    sed -i "s#$(hostname)#localhost#g" $SAG_HOME/IntegrationServer/instances/default/config/remote.cnf && \
     rm -Rf $SAG_HOME/profiles/CTP
 
 # Target image
