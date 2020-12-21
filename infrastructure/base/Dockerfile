@@ -12,7 +12,8 @@ RUN yum -y update &&\
     yum -y clean all
 
 # Set install directory
-ENV SAG_HOME=/opt/softwareag
+ENV SAG_HOME=/opt/softwareag \
+    WM_HOME=/opt/softwareag
 
 # Create user and group
 RUN groupadd -g 1724 sagadmin && \
