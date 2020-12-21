@@ -75,6 +75,13 @@ build_msr:
     - docker-compose build msr
     - docker-compose push msr
 
+build_mws:
+  stage: build_containers
+  script:
+    - cd containers
+    - docker-compose build mws
+    - docker-compose push v
+
 build_um:
   stage: build_containers
   script:

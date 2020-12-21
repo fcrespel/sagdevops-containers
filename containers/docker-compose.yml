@@ -128,6 +128,43 @@ services:
       - '../data/msr/application.properties:/opt/softwareag/IntegrationServer/application.properties'
     stop_grace_period: 30s
 
+  # My webMethods Server
+  mws:
+    image: ${REG}/mws:${TAG}
+    build:
+      context: mws/
+      args:
+        - BUILDER_IMAGE=${REG}/commandcentral-builder:${TAG}
+        - BASE_IMAGE=${REG}/java:${TAG}
+    ports:
+      - "8585:8585"
+    hostname: mws
+    environment:
+      - CC_AUTO_REGISTER
+      - JAVA_MIN_MEM=512
+      - JAVA_MAX_MEM=512
+      - MWS_DB_TYPE=postgresql
+      - MWS_DB_URL=jdbc:wm:postgresql://mws-db:5432;databaseName=mws
+      - MWS_DB_USERNAME=mws
+      - MWS_DB_PASSWORD=mws
+      - MWS_DB_NAME=mws
+    stop_grace_period: 30s
+    depends_on:
+      - mws-db
+
+  # My webMethods Server database (PostgreSQL)
+  mws-db:
+    image: postgres:10
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=mws
+      - POSTGRES_PASSWORD=mws
+      - POSTGRES_DB=mws
+    volumes:
+      - '../data/mws/db:/var/lib/postgresql/data'
+    stop_grace_period: 30s
+
   # Universal Messaging
   um:
     image: ${REG}/um:${TAG}

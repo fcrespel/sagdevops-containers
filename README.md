@@ -6,6 +6,7 @@ This repository contains templates to build containers for some SoftwareAG webMe
 - Broker
 - Integration Server
 - Microservices Runtime
+- My webMethods Server
 - Universal Messaging
 
 It is based on the general layout and samples provided in the [SoftwareAG/sagdevops-templates](https://github.com/SoftwareAG/sagdevops-template) repository, cleaned and simplified. It is not meant for immediate production use, only as an example to build upon.
@@ -48,6 +49,7 @@ Go to the `containers` directory and execute `docker-compose build <product>` to
 - `ids`: Internal Data Store (Elasticsearch)
 - `is`: Integration Server (with CloudStreams, JDBC and Kafka Adapters)
 - `msr`: Microservices Runtime (with CloudStreams, JDBC and Kafka Adapters)
+- `mws`: My webMethods Server
 - `um`: Universal Messaging
 
 Each directory contains a `Dockerfile` using multi-stage build to provision the product using the `commandcentral-builder` image and a `template.yaml` file, then copy the installation directory on top of the `java` image. The latest fixes are applied by default. The `entrypoint.sh` script starts the main product runtime.

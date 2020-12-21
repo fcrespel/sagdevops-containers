@@ -1,0 +1,86 @@
+alias: sag-mws-server
+description: My webMethods Server
+
+environments:
+  default:
+    db.type:             ${}
+    db.url:              ${}
+    db.username:         ${}
+    db.password:         ${}
+    db.name:             ${}
+    mws.instance.name:   default
+    mws.http.port:       8585
+    mws.https.port:      8586
+    mws.jmx.port:        8587
+    mws.memory.init:     256
+    mws.memory.max:      512
+    mws.lb.protocol:     http
+    mws.lb.host:         localhost
+    mws.lb.http.port:    ${mws.http.port}
+    mws.lb.https.port:   ${mws.https.port}
+    mws.fixes:           ALL
+
+layers:
+  db:
+    productRepo:           ${repo.product}
+    fixRepo:               ${repo.fix}
+    templates:             mws-db
+    databases:
+      schemas:
+        products:          MywebMethodsServer
+        version:           latest
+        db.type:           ${db.type}
+        db.url:            ${db.url}
+        db.username:       ${db.username}
+        db.password:       ${db.password}
+        db.name:           ${db.name}
+  runtime:
+    productRepo: ${repo.product}
+    fixRepo:     ${repo.fix}
+    templates:   mws-server
+
+templates:
+  mws-db:
+    products:
+    - DatabaseComponentConfigurator
+    - MWScdc
+    fixes: ALL
+  mws-server:
+    fixes: ${mws.fixes}
+    products:
+      Messaging:
+      monitorUI:
+      MwsProgramFiles:
+        ${mws.instance.name}:
+          node.name: ${node.alias}
+          http.port: ${mws.http.port}
+          https.port: ${mws.https.port}
+          jmx.port: ${mws.jmx.port}
+          db.type: ${db.type}
+          db.url: "${db.url}"
+          db.username: "${db.username}"
+          db.password: "${db.password}"
+          configuration:
+            OSGI-MWS_${instance.name}:
+              COMMON-MEMORY:
+                COMMON-MEMORY:
+                  InitSize: ${mws.memory.init}
+                  MaxSize: ${mws.memory.max}
+            MwsProgramFiles-${instance.name}:
+              COMMON-CLUSTER:
+                COMMON-CLUSTER:
+                  ExtendedProperties:
+                    Property:
+                    - '@name': LoadBalancerHost
+                      $: ${mws.lb.host}
+                    - '@name': LoadBalancerHttpPort
+                      $: ${mws.lb.http.port}
+                    - '@name': LoadBalancerHttpsPort
+                      $: ${mws.lb.https.port}
+                    - '@name': jndiEnabled
+                      $: false
+
+provision:
+  default:
+    db: ${nodes}
+    runtime: ${nodes}
