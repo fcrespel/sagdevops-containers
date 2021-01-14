@@ -160,6 +160,24 @@ jobs:
       working-directory: containers
       run: docker-compose push mws
 
+  build_tsa:
+    runs-on: ubuntu-latest
+    needs: build_infra
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Docker
+      run: |
+        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+        docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
+        echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
+    - name: Build image
+      working-directory: containers
+      run: docker-compose build tsa
+    - name: Publish image
+      working-directory: containers
+      run: docker-compose push tsa
+
   build_um:
     runs-on: ubuntu-latest
     needs: build_infra

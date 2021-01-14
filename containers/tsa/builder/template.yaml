@@ -1,0 +1,88 @@
+alias: sag-tc-server
+description: Terracotta Big Memory Max 4.x server
+
+environments:
+  default:
+    tc.license.key:      terracotta-license.key
+    tc.tsa.port:         9510
+    tc.jmx.port:         9520
+    tc.grp.port:         9530
+    tc.mgt.port:         9540
+    tc.memory.init:      128
+    tc.memory.max:       512
+    tc.storage.size:     50g
+    tc.offheap.enabled:  true
+    tc.offheap.size:     1g
+    tc.fixes:            ALL
+    tc.data.dir:         ${install.dir}/Terracotta/server/data
+    tc.backup.dir:       ${install.dir}/Terracotta/server/backup
+    tc.index.dir:        ${install.dir}/Terracotta/server/index
+
+layers:
+  runtime:
+    productRepo: ${repo.product}
+    fixRepo:     ${repo.fix}
+    templates:
+      - tc-server
+
+templates:
+  tc-server:
+    licenses:
+      "Terracotta/terracotta-license.key": ${tc.license.key} 
+    fixes: ${tc.fixes}
+    products:
+      TES:
+        default:
+          configuration:
+            TES-default:
+              COMMON-MEMORY:
+                COMMON-MEMORY:
+                  InitSize: ${tc.memory.init}
+                  MaxSize:  ${tc.memory.max}
+              TC-CONFIG:
+                TC-CONFIG: |
+                  <tc:tc-config xmlns:tc="http://www.terracotta.org/config">
+                    <tc-properties>
+                      <property name="l2.nha.dirtydb.backup.enabled" value="false"/>
+                      <property name="ehcache.storageStrategy.dcv2.perElementTTITTL.enabled" value="true"/>
+                    </tc-properties>
+                    <servers>
+                      <server name="${node.alias}" host="%h">
+                        <tsa-port>${tc.tsa.port}</tsa-port>
+                        <jmx-port>${tc.jmx.port}</jmx-port>
+                        <tsa-group-port>${tc.grp.port}</tsa-group-port>
+                        <management-port>${tc.mgt.port}</management-port>
+                        <offheap>
+                          <enabled>${tc.offheap.enabled}</enabled>
+                          <maxDataSize>${tc.offheap.size}</maxDataSize>
+                        </offheap>
+                        <dataStorage size="${tc.storage.size}">
+                           <hybrid/>
+                        </dataStorage>
+                        <logs>stdout:</logs>
+                        <data>${tc.data.dir}</data>
+                        <index>${tc.index.dir}</index>
+                        <data-backup>${tc.backup.dir}</data-backup>
+                      </server>
+                      <update-check>
+                        <enabled>false</enabled>
+                      </update-check>
+                      <garbage-collection>
+                        <enabled>true</enabled>
+                        <verbose>false</verbose>
+                        <interval>3600</interval>
+                      </garbage-collection>
+                      <restartable enabled="true"/>
+                      <client-reconnect-window>120</client-reconnect-window>
+                    </servers>
+                    <clients>
+                      <logs>%(com.softwareag.tc.client.logs.directory)</logs>
+                    </clients>
+                  </tc:tc-config>
+              TC-SERVER-NAME:
+                TC-SERVER-NAME:
+                  serverName: ${node.alias}
+           
+provision:
+  default:
+    runtime: ${nodes}

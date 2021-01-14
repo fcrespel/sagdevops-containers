@@ -167,6 +167,28 @@ services:
       - '../data/mws/db:/var/lib/postgresql/data'
     stop_grace_period: 30s
 
+  # Terracotta Server
+  tsa:
+    image: ${REG}/tsa:${TAG}
+    build:
+      context: tsa/
+      args:
+        - BUILDER_IMAGE=${REG}/commandcentral-builder:${TAG}
+        - BASE_IMAGE=${REG}/java:${TAG}
+    ports:
+      - "9510:9510"
+      - "9540:9540"
+    hostname: tsa
+    environment:
+      - CC_AUTO_REGISTER
+      - JAVA_MIN_MEM=128
+      - JAVA_MAX_MEM=512
+    volumes:
+      - '../data/tsa/backup:/opt/softwareag/Terracotta/server/backup'
+      - '../data/tsa/data:/opt/softwareag/Terracotta/server/data'
+      - '../data/tsa/index:/opt/softwareag/Terracotta/server/index'
+    stop_grace_period: 30s
+
   # Universal Messaging
   um:
     image: ${REG}/um:${TAG}

@@ -80,7 +80,14 @@ build_mws:
   script:
     - cd containers
     - docker-compose build mws
-    - docker-compose push v
+    - docker-compose push mws
+
+build_tsa:
+  stage: build_containers
+  script:
+    - cd containers
+    - docker-compose build tsa
+    - docker-compose push tsa
 
 build_um:
   stage: build_containers
