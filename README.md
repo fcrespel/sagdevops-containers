@@ -51,6 +51,7 @@ Go to the `containers` directory and execute `docker-compose build <product>` to
 - `is`: Integration Server (with CloudStreams, JDBC and Kafka Adapters)
 - `msr`: Microservices Runtime (with CloudStreams, JDBC and Kafka Adapters)
 - `mws`: My webMethods Server
+- `tmc`: Terracotta Management Console
 - `tsa`: Terracotta BigMemory Max
 - `um`: Universal Messaging
 

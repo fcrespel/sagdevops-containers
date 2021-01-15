@@ -167,6 +167,22 @@ services:
       - '../data/mws/db:/var/lib/postgresql/data'
     stop_grace_period: 30s
 
+  # Terracotta Management Console
+  tmc:
+    image: ${REG}/tmc:${TAG}
+    build:
+      context: tmc/
+      args:
+        - BASE_IMAGE=${REG}/tsa:${TAG}
+    ports:
+      - "9889:9889"
+    hostname: tmc
+    environment:
+      - TSA_URL=http://tsa:9540
+    stop_grace_period: 30s
+    depends_on:
+      - tsa
+
   # Terracotta Server
   tsa:
     image: ${REG}/tsa:${TAG}

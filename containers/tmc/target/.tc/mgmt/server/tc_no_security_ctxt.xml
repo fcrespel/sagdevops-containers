@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config>
+    <version>1</version>
+    <monitoredGroups/>
+    <monitoredClusters>
+        <cluster id="TSA" agentLocation="@TSA_URL@" connectionTimeoutMillis="3000" readTimeoutMillis="15000" secured="false" clientAuthEnabled="false" sampleHistorySize="0" sampleIntervalSeconds="0"/>      
+    </monitoredClusters>
+</config>

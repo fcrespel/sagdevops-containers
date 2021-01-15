@@ -173,10 +173,10 @@ jobs:
         echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
-      run: docker-compose build tsa
+      run: docker-compose build tsa tmc
     - name: Publish image
       working-directory: containers
-      run: docker-compose push tsa
+      run: docker-compose push tsa tmc
 
   build_um:
     runs-on: ubuntu-latest

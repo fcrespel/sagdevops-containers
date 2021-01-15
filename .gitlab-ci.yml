@@ -86,8 +86,8 @@ build_tsa:
   stage: build_containers
   script:
     - cd containers
-    - docker-compose build tsa
-    - docker-compose push tsa
+    - docker-compose build tsa tmc
+    - docker-compose push tsa tmc
 
 build_um:
   stage: build_containers
