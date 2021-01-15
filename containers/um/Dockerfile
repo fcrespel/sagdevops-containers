@@ -20,7 +20,7 @@ EXPOSE 9000 8092 8093
 COPY --from=builder --chown=1724:1724 $SAG_HOME/ $SAG_HOME/
 
 # Add overlay from target directory
-ADD --chown=1724:1724 target/* $SAG_HOME/
+ADD --chown=1724:1724 target/ $SAG_HOME/
 
 # Environment variables
 ENV UM_HOME=$SAG_HOME/UniversalMessaging \

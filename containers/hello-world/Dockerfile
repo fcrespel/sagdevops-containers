@@ -23,7 +23,7 @@ EXPOSE 8092 8093
 COPY --from=builder --chown=1724:1724 $SAG_HOME/ $SAG_HOME/
 
 # Add overlay from target directory
-ADD --chown=1724:1724 target/* $SAG_HOME/
+ADD --chown=1724:1724 target/ $SAG_HOME/
 
 # Run-time container init parameter
 ENV HELLO_NAME=default

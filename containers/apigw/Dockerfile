@@ -20,7 +20,7 @@ EXPOSE 5555 9999 8075 8092 8093 9072 9073
 COPY --from=builder --chown=1724:1724 $SAG_HOME/ $SAG_HOME/
 
 # Add overlay from target directory
-ADD --chown=1724:1724 target/* $SAG_HOME/
+ADD --chown=1724:1724 target/ $SAG_HOME/
 
 # Entrypoint script
 ENTRYPOINT ["/opt/softwareag/entrypoint.sh"]
