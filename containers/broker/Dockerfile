@@ -14,7 +14,7 @@ RUN $CC_HOME/provision.sh && $CC_HOME/test.sh && $CC_HOME/cleanup.sh
 FROM $BASE_IMAGE
 
 # Expose ports
-EXPOSE 6849 6850 8092 8093
+EXPOSE 6847 6848 6849 6850 8092 8093
 
 # Copy install directory from builder image
 COPY --from=builder --chown=1724:1724 $SAG_HOME/ $SAG_HOME/
