@@ -37,5 +37,12 @@ COPY --from=builder --chown=1724:1724 $SAG_HOME/ $SAG_HOME/
 # Add overlay from target directory
 ADD --chown=1724:1724 target/ $SAG_HOME/
 
+# Environment variables
+ENV MWS_DB_TYPE="postgresql" \
+    MWS_DB_URL="jdbc:wm:postgresql://mws-db:5432;databaseName=mws" \
+    MWS_DB_USERNAME="mws" \
+    MWS_DB_PASSWORD="mws" \
+    MWS_DB_NAME="mws"
+
 # Entrypoint script
 ENTRYPOINT ["/opt/softwareag/entrypoint.sh"]
