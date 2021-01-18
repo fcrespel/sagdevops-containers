@@ -1,6 +1,6 @@
 # SoftwareAG containers
 
-This repository contains templates to build containers for some SoftwareAG webMethods products:
+This repository contains templates to build containers for some **SoftwareAG webMethods** products:
 - Asset Build Environment
 - API Gateway
 - Broker
@@ -10,7 +10,7 @@ This repository contains templates to build containers for some SoftwareAG webMe
 - Terracotta BigMemory Max
 - Universal Messaging
 
-It is based on the general layout and samples provided in the [SoftwareAG/sagdevops-templates](https://github.com/SoftwareAG/sagdevops-template) repository, cleaned and simplified. It is not meant for immediate production use, only as an example to build upon.
+It is inspired by the general layout and samples provided in the [SoftwareAG/sagdevops-templates](https://github.com/SoftwareAG/sagdevops-template) repository, cleaned and simplified. Container images aim to be **production-ready** as much as possible, or to be used as stable base images to build upon.
 
 These tools are provided as-is and without warranty or support. They do not constitute part of the Software AG product suite, and are not endorsed by SoftwareAG. Users are free to use, fork and modify them, subject to the license agreement.
 
@@ -28,7 +28,7 @@ You will also need Empower credentials with access to the products you want to b
 
 Go to the `infrastructure` directory and prepare your environment:
 
-- Edit the `.env` file to fill in your Empower credentials (be careful, never commit them to GitHub!). Alternatively, you may also set them in your terminal with `export REPO_USERNAME=your-username` and `export REPO_PASSWORD=your-password`.
+- Edit the `.env` file to fill in your Empower credentials (be careful, never commit them to GitHub!). Alternatively, you may also set them in your terminal or CI tool with `export REPO_USERNAME=your-username` and `export REPO_PASSWORD=your-password`.
 - In the `commandcentral-builder/licenses` subdirectory, create a `product_licenses.zip` file containing your license XML files. Alternatively, you may also set a `LICENSES_URL` environment variable to have it downloaded automatically during the build.
 
 Then execute `docker-compose build` from the `infrastructure` directory to build 3 images:
@@ -57,6 +57,8 @@ Go to the `containers` directory and execute `docker-compose build <product>` to
 
 Each directory contains a `Dockerfile` using multi-stage build to provision the product using the `commandcentral-builder` image and a `template.yaml` file, then copy the installation directory on top of the `java` image. The latest fixes are applied by default. The `entrypoint.sh` script starts the main product runtime.
 
+Please refer to each `README.md` file for more details about ports, environment variables, volumes and useful links.
+
 For more information about Command Central templates, please see the [official documentation](https://documentation.softwareag.com/webmethods/command_central/cce10-5/10-5_Command_Central_webhelp/index.html).
 
 ### Using Continuous Integration (CI) tools
@@ -71,4 +73,4 @@ Once a product image is built, you may run it anywhere with Docker or container 
 
 To test them locally, go to the `containers` directory and execute `docker-compose up -d <product>` with the same product names as described above. Refer to the `docker-compose.yml` file to see which ports are available.
 
-You may also start the Command Central container with `docker-compose up -d cc`. If you start it before other containers, each product container will automatically register to it during startup. This can be useful to inspect the various configuration parameters supported by each product and export this configuration to YAML templates.
+You may also start the Command Central container with `docker-compose up -d cc`. If you start it before other containers, and if you set environment variable `CC_AUTO_REGISTER=1`, each product container will automatically register to it during startup. This can be useful to inspect the various configuration parameters supported by each product and export this configuration to YAML templates.
