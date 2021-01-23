@@ -31,5 +31,8 @@ ENV BROKER_DATA_DIR="$SAG_HOME/Broker/data" \
     BROKER_SERVER_PARAMS="max-memory-size=1024 max-recv-events=400" \
     BROKER_NAME="default"
 
+# Initialize data directory
+RUN mkdir -p "$BROKER_DATA_DIR"
+
 # Entrypoint script
 ENTRYPOINT ["/opt/softwareag/entrypoint.sh"]
