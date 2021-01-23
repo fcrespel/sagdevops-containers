@@ -68,7 +68,7 @@ services:
       - BROKER_CONFIG_SIZE=64M
       - BROKER_DATA_SIZE=512M
     volumes:
-      - '../data/broker:/opt/softwareag/Broker/data'
+      - 'broker-data:/opt/softwareag/Broker/data'
     stop_grace_period: 30s
 
   # Internal Data Store (Elasticsearch)
@@ -90,7 +90,7 @@ services:
       - bootstrap.memory_lock=true
       - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
     volumes:
-      - '../data/ids:/opt/softwareag/InternalDataStore/data'
+      - 'ids-data:/opt/softwareag/InternalDataStore/data'
     ulimits:
       memlock:
         soft: -1
@@ -112,6 +112,11 @@ services:
       - CC_AUTO_REGISTER
       - JAVA_MIN_MEM=512
       - JAVA_MAX_MEM=512
+    volumes:
+      - 'is-cache:/opt/softwareag/IntegrationServer/instances/default/cacheStore'
+      - 'is-db:/opt/softwareag/IntegrationServer/instances/default/db'
+      - 'is-ds:/opt/softwareag/IntegrationServer/instances/default/DocumentStore'
+      - 'is-xa:/opt/softwareag/IntegrationServer/instances/default/XAStore'
     stop_grace_period: 30s
 
   # Microservices Runtime
@@ -130,8 +135,11 @@ services:
       - JAVA_MIN_MEM=512m
       - JAVA_MAX_MEM=512m
     volumes:
-      - '../data/msr/autodeploy:/opt/softwareag/IntegrationServer/replicate/autodeploy'
-      - '../data/msr/application.properties:/opt/softwareag/IntegrationServer/application.properties'
+      - './msr/runtime/autodeploy:/opt/softwareag/IntegrationServer/replicate/autodeploy'
+      - './msr/runtime/application.properties:/opt/softwareag/IntegrationServer/application.properties'
+      - 'msr-cache:/opt/softwareag/IntegrationServer/cacheStore'
+      - 'msr-db:/opt/softwareag/IntegrationServer/db'
+      - 'msr-xa:/opt/softwareag/IntegrationServer/XAStore'
     stop_grace_period: 30s
 
   # My webMethods Server
@@ -168,7 +176,7 @@ services:
       - POSTGRES_PASSWORD=mws
       - POSTGRES_DB=mws
     volumes:
-      - '../data/mws/db:/var/lib/postgresql/data'
+      - 'mws-db:/var/lib/postgresql/data'
     stop_grace_period: 30s
 
   # Terracotta Management Console
@@ -204,9 +212,9 @@ services:
       - JAVA_MIN_MEM=128
       - JAVA_MAX_MEM=512
     volumes:
-      - '../data/tsa/backup:/opt/softwareag/Terracotta/server/backup'
-      - '../data/tsa/data:/opt/softwareag/Terracotta/server/data'
-      - '../data/tsa/index:/opt/softwareag/Terracotta/server/index'
+      - 'tsa-backup:/opt/softwareag/Terracotta/server/backup'
+      - 'tsa-data:/opt/softwareag/Terracotta/server/data'
+      - 'tsa-index:/opt/softwareag/Terracotta/server/index'
     stop_grace_period: 30s
 
   # Universal Messaging
@@ -225,5 +233,21 @@ services:
       - JAVA_MIN_MEM=512
       - JAVA_MAX_MEM=512
     volumes:
-      - '../data/um:/opt/softwareag/UniversalMessaging/server/default/data'
+      - 'um-data:/opt/softwareag/UniversalMessaging/server/default/data'
     stop_grace_period: 30s
+
+volumes:
+  broker-data:
+  ids-data:
+  is-cache:
+  is-db:
+  is-ds:
+  is-xa:
+  msr-cache:
+  msr-db:
+  msr-xa:
+  mws-db:
+  tsa-backup:
+  tsa-data:
+  tsa-index:
+  um-data:
