@@ -1,0 +1,32 @@
+alias: sag-cc-creds
+description: Basic outbound credentials
+version: 10.2
+
+environments:
+  default:                      
+    credentials.username: ${}    # REQUIRED, username
+    credentials.password: ${}    # REQUIRED, password
+    credentials.key:      ${}
+
+layers:
+  cce:
+    templates:
+      - creds
+
+templates:
+  creds:
+    products:
+      CCE:
+        default:
+          configuration:
+            OSGI-CCE-ENGINE:              
+              COMMON-CREDENTIALS:                        # Credentials configuration type
+                COMMON-CREDENTIALS-${credentials.key}: 
+                    "@alias": ${credentials.key}
+                    AuthenticationType: BASIC            # MUST be BASIC authentication
+                    UserName: "${credentials.username}"  # Username
+                    Password: "${credentials.password}"  # Password
+provision:
+  default:
+    cce:  
+      - local # apply to local CCE

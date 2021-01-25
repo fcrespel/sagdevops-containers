@@ -13,24 +13,48 @@ services:
     build:
       context: java/
       args:
-        - BUILDER_IMAGE=${REG}/commandcentral-builder:${TAG}
+        - BUILDER_IMAGE=${REG}/cc-server:${TAG}
         - BASE_IMAGE=${REG}/base:${TAG}
     depends_on: 
+      - cc-server
       - base
-      - builder
 
-  builder:
-    image: ${REG}/commandcentral-builder:${TAG}
-    ports:
-      - 8091 # CCE
-      - 8092 # SPM
+  cc-server:
+    image: ${REG}/cc-server:${TAG}
     build:
-      context: commandcentral-builder/
+      context: cc-server/
       args:
-        - BUILDER_IMAGE=${CC_REG}/commandcentral-builder:${CC_TAG}
-        - NODE_IMAGE=${CC_REG}/commandcentral-node:${TAG}
+        - BASE_IMAGE=${REG}/base:${TAG}
+        - CC_INSTALLER
+        - CC_INSTALLER_URL
+    depends_on: 
+      - base
+
+  cc-node:
+    image: ${REG}/cc-node:${TAG}
+    build:
+      context: cc-node/
+      args:
+        - BUILDER_IMAGE=${REG}/cc-server:${TAG}
+        - BASE_IMAGE=${REG}/java:${TAG}
+        - CC_INSTALLER
+        - CC_INSTALLER_URL
+    depends_on: 
+      - cc-server
+      - java
+
+  cc-builder:
+    image: ${REG}/cc-builder:${TAG}
+    build:
+      context: cc-builder/
+      args:
+        - BASE_IMAGE=${REG}/cc-server:${TAG}
+        - NODE_IMAGE=${REG}/cc-node:${TAG}
         - REPO_PRODUCT_URL
         - REPO_FIX_URL
         - REPO_USERNAME
         - REPO_PASSWORD
         - LICENSES_URL
+    depends_on:
+      - cc-server
+      - cc-node

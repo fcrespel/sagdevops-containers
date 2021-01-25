@@ -1,0 +1,16 @@
+alias: sag-empty
+description: Empty template
+
+# layers:
+#   container:
+#     templates: empty
+
+# templates:
+#   empty:
+#     fixes: []
+#     products:
+#       SPM:
+
+# provision:
+#   default:
+#     container: ${nodes}

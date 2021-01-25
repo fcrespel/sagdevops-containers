@@ -1,0 +1,22 @@
+alias: sag-cc-builder-repos
+description: Register products and fixes repos
+
+environments:
+  default:
+    repo.product.url:             ${}
+    repo.product.credentials.key: ${}
+    repo.product.name:            ${}
+    repo.fix.url:                 ${}
+    repo.fix.credentials.key:     ${}
+    repo.fix.name:                ${}
+
+repositories:
+  product:                     
+    "${repo.product.name}":
+      location: ${repo.product.url}        
+      credentials: ${repo.product.credentials.key}
+
+  fix:                        
+    "${repo.fix.name}":
+      location: ${repo.fix.url}
+      credentials: ${repo.fix.credentials.key}

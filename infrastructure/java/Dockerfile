@@ -15,4 +15,4 @@ ENV JAVA_HOME=$SAG_HOME/jvm/jvm
 ENV PATH=$PATH:$JAVA_HOME/bin
 
 # Copy JVM from builder image
-COPY --from=builder --chown=1724:1724 $SAG_HOME/jvm/ $SAG_HOME/jvm/
+COPY --from=builder --chown=1724:1724 /opt/sagtools/jvm/ $SAG_HOME/jvm/
