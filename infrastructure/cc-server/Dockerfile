@@ -33,7 +33,7 @@ RUN $CC_HOME/bootstrap.sh && \
     rm -f $CC_HOME/jvm/jvm/src.zip
 
 # Expose ports
-EXPOSE 8090 8091 8092 8093 8992 8993
+EXPOSE 8090 8091 8992 8993
 
 # Entrypoint script
 CMD ["/bin/sh", "-c", "$CC_HOME/cce-entrypoint.sh"]
