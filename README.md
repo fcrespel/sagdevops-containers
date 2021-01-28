@@ -30,7 +30,7 @@ Go to the `infrastructure` directory and prepare your environment:
 - Edit the `.env` file to fill in your Empower credentials (be careful, never commit them to GitHub!). Alternatively, you may also set them in your terminal or CI tool with `export REPO_USERNAME=your-username` and `export REPO_PASSWORD=your-password`.
 - In the `cc-builder/target/licenses` subdirectory, create a `product_licenses.zip` file containing your license XML files. Alternatively, you may also set a `LICENSES_URL` environment variable to have it downloaded automatically during the build.
 
-Then execute `docker-compose build` from the `infrastructure` directory to build 3 images:
+Then execute `docker-compose build` from the `infrastructure` directory to build the following images:
 
 - `base`: a simple CentOS 7 base layer with the `/opt/softwareag` install directory and `sagadmin` system user.
 - `java`: an image with the JVM provided with SoftwareAG products, built on top of the `base` image. This image is used to share the JVM layer between subsequent product images.

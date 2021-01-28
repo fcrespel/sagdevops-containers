@@ -2,7 +2,7 @@
 
 ## Ports
 
-The following ports are exposed by this container.
+The following ports are exposed by this container image.
 
 | Port | Description |
 | ---- | ----------- |
@@ -15,6 +15,14 @@ The following environment variables can be used with this container.
 | Variable | Description | Default value |
 | -------- | ----------- | ------------- |
 | TSA_URL | Terracotta Server management URL | http://tsa:9540 |
+
+## Build arguments
+
+The following arguments can be used when building the container image.
+
+| Argument | Description | Default value |
+| -------- | ----------- | ------------- |
+| BASE_IMAGE | Base image (tsa) | |
 
 ## Useful links
 

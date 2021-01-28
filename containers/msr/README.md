@@ -2,7 +2,7 @@
 
 ## Ports
 
-The following ports are exposed by this container.
+The following ports are exposed by this container image.
 
 | Port | Description |
 | ---- | ----------- |
@@ -35,6 +35,15 @@ Using a dedicated volume is recommended for the following paths.
 | /opt/softwareag/IntegrationServer/replicate/autodeploy | Package auto-deployment directory |
 | /opt/softwareag/IntegrationServer/WmRepository4 | Legacy repository |
 | /opt/softwareag/IntegrationServer/XAStore | XA transaction store |
+
+## Build arguments
+
+The following arguments can be used when building the container image.
+
+| Argument | Description | Default value |
+| -------- | ----------- | ------------- |
+| BASE_IMAGE | Base image (java) | |
+| BUILDER_IMAGE | Builder image (cc-builder) | |
 
 ## Useful links
 

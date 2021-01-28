@@ -2,7 +2,7 @@
 
 ## Ports
 
-The following ports are exposed by this container.
+The following ports are exposed by this container image.
 
 | Port | Description |
 | ---- | ----------- |
@@ -34,6 +34,15 @@ Using a dedicated volume is recommended for the following paths.
 | Path | Description |
 | ---- | ----------- |
 | /opt/softwareag/Broker/data | Directory for data and config stores |
+
+## Build arguments
+
+The following arguments can be used when building the container image.
+
+| Argument | Description | Default value |
+| -------- | ----------- | ------------- |
+| BASE_IMAGE | Base image (java) | |
+| BUILDER_IMAGE | Builder image (cc-builder) | |
 
 ## Useful links
 
