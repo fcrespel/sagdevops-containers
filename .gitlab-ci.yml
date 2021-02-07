@@ -1,8 +1,6 @@
 image: docker/compose
 
 variables:
-  DOCKER_HUB_USERNAME: toComplete
-  DOCKER_HUB_PASSWORD: toComplete
   DOCKER_REGISTRY_USERNAME: toComplete
   DOCKER_REGISTRY_PASSWORD: toComplete
   DOCKER_REGISTRY: docker.crespel.me
@@ -13,6 +11,8 @@ variables:
   REPO_USERNAME: toComplete
   REPO_PASSWORD: toComplete
   LICENSES_URL: toComplete
+  IMAGE_URL: ${CI_PROJECT_URL}
+  IMAGE_REV: ${CI_COMMIT_SHORT_SHA}
 
 services:
   - docker:dind
@@ -23,7 +23,6 @@ stages:
 
 default:
   before_script:
-    - docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}
     - docker login -u ${DOCKER_REGISTRY_USERNAME} -p ${DOCKER_REGISTRY_PASSWORD} ${DOCKER_REGISTRY}
   
 build_infra:

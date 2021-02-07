@@ -20,11 +20,12 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup Docker
       run: |
-        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
         echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
         echo "REPO_PRODUCT_URL=${REPO_PRODUCT_URL:-https://sdc.softwareag.com/dataservewebM105/repository}" >> $GITHUB_ENV
         echo "REPO_FIX_URL=${REPO_FIX_URL:-https://sdc.softwareag.com/updates/prodRepo}" >> $GITHUB_ENV
+        echo "IMAGE_URL=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+        echo "IMAGE_REV=${GITHUB_SHA:0:8}" >> $GITHUB_ENV
     - name: Build images
       working-directory: infrastructure
       run: docker-compose build
@@ -40,9 +41,10 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup Docker
       run: |
-        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
         echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
+        echo "IMAGE_URL=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+        echo "IMAGE_REV=${GITHUB_SHA:0:8}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: docker-compose build abe
@@ -58,9 +60,10 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup Docker
       run: |
-        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
         echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
+        echo "IMAGE_URL=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+        echo "IMAGE_REV=${GITHUB_SHA:0:8}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: docker-compose build apigw
@@ -76,9 +79,10 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup Docker
       run: |
-        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
         echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
+        echo "IMAGE_URL=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+        echo "IMAGE_REV=${GITHUB_SHA:0:8}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: docker-compose build broker
@@ -94,9 +98,10 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup Docker
       run: |
-        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
         echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
+        echo "IMAGE_URL=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+        echo "IMAGE_REV=${GITHUB_SHA:0:8}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: |
@@ -114,9 +119,10 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup Docker
       run: |
-        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
         echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
+        echo "IMAGE_URL=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+        echo "IMAGE_REV=${GITHUB_SHA:0:8}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: docker-compose build is
@@ -132,9 +138,10 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup Docker
       run: |
-        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
         echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
+        echo "IMAGE_URL=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+        echo "IMAGE_REV=${GITHUB_SHA:0:8}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: docker-compose build msr
@@ -150,9 +157,10 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup Docker
       run: |
-        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
         echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
+        echo "IMAGE_URL=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+        echo "IMAGE_REV=${GITHUB_SHA:0:8}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: docker-compose build mws
@@ -168,9 +176,10 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup Docker
       run: |
-        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
         echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
+        echo "IMAGE_URL=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+        echo "IMAGE_REV=${GITHUB_SHA:0:8}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: docker-compose build tsa tmc
@@ -186,9 +195,10 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup Docker
       run: |
-        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
         docker login -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} ${DOCKER_REGISTRY}
         echo "REG=${DOCKER_REGISTRY}/${DOCKER_REPO}" >> $GITHUB_ENV
+        echo "IMAGE_URL=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+        echo "IMAGE_REV=${GITHUB_SHA:0:8}" >> $GITHUB_ENV
     - name: Build image
       working-directory: containers
       run: docker-compose build um

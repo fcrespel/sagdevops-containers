@@ -37,6 +37,13 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=Asset Build Environment"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
 
   # API Gateway
   apigw:
@@ -46,6 +53,13 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=API Gateway"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
     ports:
       - "6555:5555"
       - "9072:9072"
@@ -67,6 +81,13 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=Broker Server"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
     ports:
       - "6849:6849"
     hostname: broker
@@ -86,6 +107,13 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=Internal Data Store"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
     ports:
       - "9240:9240"
     hostname: ids
@@ -112,6 +140,13 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=Integration Server"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
     ports:
       - "5555:5555"
     hostname: is
@@ -134,6 +169,13 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=Microservices Runtime"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
     ports:
       - "5556:5555"
     hostname: msr
@@ -157,6 +199,13 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=My webMethods Server"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
     ports:
       - "8585:8585"
     hostname: mws
@@ -193,6 +242,13 @@ services:
       context: tmc/
       args:
         - BASE_IMAGE=${REG}/tsa:${TAG}
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=Terracotta Management Console"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
     ports:
       - "9889:9889"
     hostname: tmc
@@ -210,6 +266,13 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=Terracotta Server"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
     ports:
       - "9510:9510"
       - "9540:9540"
@@ -232,6 +295,13 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=Universal Messaging"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
     ports:
       - "9000:9000"
     hostname: um

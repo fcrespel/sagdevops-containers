@@ -15,6 +15,13 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-server:${TAG}
         - BASE_IMAGE=${REG}/base:${TAG}
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=Java base image"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
     depends_on: 
       - cc-server
       - base
@@ -27,6 +34,13 @@ services:
         - BASE_IMAGE=${REG}/base:${TAG}
         - CC_INSTALLER
         - CC_INSTALLER_URL
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=Command Central Server"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
     depends_on: 
       - base
 
@@ -39,6 +53,13 @@ services:
         - BASE_IMAGE=${REG}/java:${TAG}
         - CC_INSTALLER
         - CC_INSTALLER_URL
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=Command Central Node"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
     depends_on: 
       - cc-server
       - java
@@ -55,6 +76,13 @@ services:
         - REPO_USERNAME
         - REPO_PASSWORD
         - LICENSES_URL
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=Command Central Builder"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
     depends_on:
       - cc-server
       - cc-node
