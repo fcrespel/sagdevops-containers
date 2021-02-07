@@ -7,6 +7,13 @@ services:
     ports:
       - "8091:8091"
     hostname: cc
+    environment:
+      - CC_PASSWORD
+    volumes:
+      - 'cce-conf:/opt/softwareag/profiles/CCE/conf'
+      - 'cce-data:/opt/softwareag/profiles/CCE/data'
+      - 'spm-conf:/opt/softwareag/profiles/SPM/conf'
+      - 'spm-data:/opt/softwareag/profiles/SPM/data'
 
   # Hello World sample
   hello-world:
@@ -238,6 +245,8 @@ services:
 
 volumes:
   broker-data:
+  cce-conf:
+  cce-data:
   ids-data:
   is-cache:
   is-db:
@@ -247,6 +256,8 @@ volumes:
   msr-db:
   msr-xa:
   mws-db:
+  spm-conf:
+  spm-data:
   tsa-backup:
   tsa-data:
   tsa-index:
