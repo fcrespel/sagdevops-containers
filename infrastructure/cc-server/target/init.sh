@@ -40,6 +40,8 @@ echo "# Container initialization #"
 echo "############################"
 echo "$$" > /tmp/init.status
 REPO_CREDS_BASIC=""
+REPO_PRODUCT_NAME="${REPO_PRODUCT_NAME:-products}"
+REPO_FIX_NAME="${REPO_FIX_NAME:-fixes}"
 
 if [ ! -z $REPO_PRODUCT_URL ] && [ ! -z $REPO_FIX_URL ]; then
 

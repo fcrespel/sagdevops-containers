@@ -9,6 +9,11 @@ services:
     hostname: cc
     environment:
       - CC_PASSWORD
+      - REPO_PRODUCT_URL
+      - REPO_FIX_URL
+      - REPO_USERNAME
+      - REPO_PASSWORD
+      - LICENSES_URL
     volumes:
       - 'cce-conf:/opt/softwareag/profiles/CCE/conf'
       - 'cce-data:/opt/softwareag/profiles/CCE/data'
@@ -37,6 +42,11 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - REPO_PRODUCT_URL
+        - REPO_FIX_URL
+        - REPO_USERNAME
+        - REPO_PASSWORD
+        - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
         - "org.opencontainers.image.revision=${IMAGE_REV:-}"
@@ -53,6 +63,11 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - REPO_PRODUCT_URL
+        - REPO_FIX_URL
+        - REPO_USERNAME
+        - REPO_PASSWORD
+        - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
         - "org.opencontainers.image.revision=${IMAGE_REV:-}"
@@ -81,6 +96,11 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - REPO_PRODUCT_URL
+        - REPO_FIX_URL
+        - REPO_USERNAME
+        - REPO_PASSWORD
+        - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
         - "org.opencontainers.image.revision=${IMAGE_REV:-}"
@@ -107,6 +127,11 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - REPO_PRODUCT_URL
+        - REPO_FIX_URL
+        - REPO_USERNAME
+        - REPO_PASSWORD
+        - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
         - "org.opencontainers.image.revision=${IMAGE_REV:-}"
@@ -140,6 +165,11 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - REPO_PRODUCT_URL
+        - REPO_FIX_URL
+        - REPO_USERNAME
+        - REPO_PASSWORD
+        - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
         - "org.opencontainers.image.revision=${IMAGE_REV:-}"
@@ -169,6 +199,11 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - REPO_PRODUCT_URL
+        - REPO_FIX_URL
+        - REPO_USERNAME
+        - REPO_PASSWORD
+        - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
         - "org.opencontainers.image.revision=${IMAGE_REV:-}"
@@ -199,6 +234,11 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - REPO_PRODUCT_URL
+        - REPO_FIX_URL
+        - REPO_USERNAME
+        - REPO_PASSWORD
+        - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
         - "org.opencontainers.image.revision=${IMAGE_REV:-}"
@@ -266,6 +306,11 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - REPO_PRODUCT_URL
+        - REPO_FIX_URL
+        - REPO_USERNAME
+        - REPO_PASSWORD
+        - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
         - "org.opencontainers.image.revision=${IMAGE_REV:-}"
@@ -295,6 +340,11 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - REPO_PRODUCT_URL
+        - REPO_FIX_URL
+        - REPO_USERNAME
+        - REPO_PASSWORD
+        - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
         - "org.opencontainers.image.revision=${IMAGE_REV:-}"

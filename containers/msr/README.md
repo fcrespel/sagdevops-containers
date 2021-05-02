@@ -44,6 +44,13 @@ The following arguments can be used when building the container image.
 | -------- | ----------- | ------------- |
 | BASE_IMAGE | Base image (java) | |
 | BUILDER_IMAGE | Builder image (cc-builder) | |
+| REPO_USERNAME | Empower or mirror username | |
+| REPO_PASSWORD | Empower or mirror password | |
+| REPO_PRODUCT_URL | Product repository URL | |
+| REPO_PRODUCT_NAME | Product repository name | products |
+| REPO_FIX_URL | Fix repository URL | https://sdc.softwareag.com/updates/prodRepo |
+| REPO_FIX_NAME | Fix repository name | fixes |
+| LICENSES_URL | Licenses ZIP file URL | |
 
 ## Useful links
 
