@@ -21,6 +21,8 @@ The following environment variables can be used with this container.
 | -------- | ----------- | ------------- |
 | JAVA_MIN_MEM | Minimum Java heap size in MB | 128 |
 | JAVA_MAX_MEM | Maximum Java heap size in MB | 512 |
+| TC_NODE_NAME | Terracotta node name (when using multiple nodes) | |
+| TC_NODES | Terracotta nodes list (comma-separated hostnames) | |
 
 ## Volumes
 
