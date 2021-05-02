@@ -8,7 +8,7 @@ FROM $BASE_IMAGE
 
 # Install packages and updates
 RUN yum -y update &&\
-    yum -y install file gettext iproute less unzip which &&\
+    yum -y install file gettext iproute less libxslt net-tools rsync unzip which &&\
     yum -y clean all
 
 # Set install directory
