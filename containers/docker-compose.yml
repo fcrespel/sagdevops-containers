@@ -76,7 +76,7 @@ services:
         - "org.opencontainers.image.vendor=SoftwareAG"
         - "org.opencontainers.image.version=${TAG}"
     ports:
-      - "6555:5555"
+      - "7555:5555"
       - "9072:9072"
     hostname: apigw
     environment:
@@ -178,7 +178,9 @@ services:
         - "org.opencontainers.image.vendor=SoftwareAG"
         - "org.opencontainers.image.version=${TAG}"
     ports:
+      - "5554:5554"
       - "5555:5555"
+      - "5556:5556"
     hostname: is
     environment:
       - CC_AUTO_REGISTER
@@ -188,6 +190,7 @@ services:
       - 'is-cache:/opt/softwareag/IntegrationServer/instances/default/cacheStore'
       - 'is-db:/opt/softwareag/IntegrationServer/instances/default/db'
       - 'is-ds:/opt/softwareag/IntegrationServer/instances/default/DocumentStore'
+      - 'is-packages:/opt/softwareag/IntegrationServer/instances/default/packages'
       - 'is-xa:/opt/softwareag/IntegrationServer/instances/default/XAStore'
     stop_grace_period: 30s
 
@@ -212,7 +215,7 @@ services:
         - "org.opencontainers.image.vendor=SoftwareAG"
         - "org.opencontainers.image.version=${TAG}"
     ports:
-      - "5556:5555"
+      - "6555:5555"
     hostname: msr
     environment:
       - CC_AUTO_REGISTER
@@ -371,6 +374,7 @@ volumes:
   is-cache:
   is-db:
   is-ds:
+  is-packages:
   is-xa:
   msr-cache:
   msr-db:

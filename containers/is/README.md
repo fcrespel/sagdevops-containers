@@ -6,7 +6,9 @@ The following ports are exposed by this container image.
 
 | Port | Description |
 | ---- | ----------- |
+| 5554 | Admin HTTP port (for scripts/tools) |
 | 5555 | Primary HTTP port |
+| 5556 | Web Services HTTP port |
 | 9999 | Diagnostic HTTP port |
 | 8075 | JMX port |
 | 8092 | SPM HTTP port |
@@ -20,6 +22,10 @@ The following environment variables can be used with this container.
 | -------- | ----------- | ------------- |
 | JAVA_MIN_MEM | Minimum Java heap size in MB | 512 |
 | JAVA_MAX_MEM | Maximum Java heap size in MB | 512 |
+| SYNC_PACKAGES | Sync packages from image to instance at startup | true |
+| SYNC_CONFIG | Sync config from image to instance at startup | true |
+| IS_USER_PWD_xxx | Password for user xxx (Administrator, proxyuser, etc.) | |
+| watt.xxx | Value for Extended Setting xxx (watt.debug.level, etc.) | |
 
 ## Volumes
 
@@ -31,6 +37,7 @@ Using a dedicated volume is recommended for the following paths.
 | /opt/softwareag/IntegrationServer/instances/default/db | Derby databases (embedded, audit, CSQ ...) |
 | /opt/softwareag/IntegrationServer/instances/default/DocumentStore | Document store (resubmit, triggers ...) |
 | /opt/softwareag/IntegrationServer/instances/default/logs | Server logs |
+| /opt/softwareag/IntegrationServer/instances/default/packages | Packages |
 | /opt/softwareag/IntegrationServer/instances/default/WmRepository4 | Legacy repository |
 | /opt/softwareag/IntegrationServer/instances/default/XAStore | XA transaction store |
 

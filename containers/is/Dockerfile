@@ -8,15 +8,14 @@ ARG BASE_IMAGE
 FROM $BUILDER_IMAGE as builder
 
 # Provision, unit test, cleanup
-RUN $CC_HOME/provision.sh && $CC_HOME/test.sh && $CC_HOME/cleanup.sh && \
-    sed -i "s#$(hostname)#localhost#g" $SAG_HOME/IntegrationServer/instances/default/config/remote.cnf && \
+RUN $CC_HOME/provision.sh && $CC_HOME/customize.sh && $CC_HOME/test.sh && $CC_HOME/cleanup.sh && \
     rm -Rf $SAG_HOME/profiles/CTP
 
 # Target image
 FROM $BASE_IMAGE
 
 # Expose ports
-EXPOSE 5555 9999 8075 8092 8093
+EXPOSE 5554 5555 5556 9999 8075 8092 8093
 
 # Copy install directory from builder image
 COPY --from=builder --chown=1724:1724 $SAG_HOME/ $SAG_HOME/
