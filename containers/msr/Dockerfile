@@ -24,5 +24,8 @@ COPY --from=builder --chown=1724:1724 $SAG_HOME/ $SAG_HOME/
 # Add overlay from target directory
 ADD --chown=1724:1724 target/ $SAG_HOME/
 
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=300s --retries=5 CMD [ "/opt/softwareag/healthcheck.sh" ]
+
 # Entrypoint script
 ENTRYPOINT ["/opt/softwareag/entrypoint.sh"]

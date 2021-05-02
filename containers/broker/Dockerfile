@@ -34,5 +34,8 @@ ENV BROKER_DATA_DIR="$SAG_HOME/Broker/data" \
 # Initialize data directory
 RUN mkdir -p "$BROKER_DATA_DIR"
 
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=300s --retries=5 CMD [ "/opt/softwareag/healthcheck.sh" ]
+
 # Entrypoint script
 ENTRYPOINT ["/opt/softwareag/entrypoint.sh"]

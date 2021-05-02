@@ -35,5 +35,8 @@ RUN $CC_HOME/bootstrap.sh && \
 # Expose ports
 EXPOSE 8090 8091 8992 8993
 
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=300s --retries=5 CMD [ "/opt/sagtools/healthcheck.sh" ]
+
 # Entrypoint script
 CMD ["/bin/sh", "-c", "$CC_HOME/cce-entrypoint.sh"]

@@ -27,5 +27,8 @@ ENV UM_HOME=$SAG_HOME/UniversalMessaging \
     UM_INSTANCE_NAME=${__um_instance_name:-default} \
     UM_REALM=${__um_realm:-default}
 
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=300s --retries=5 CMD [ "/opt/softwareag/healthcheck.sh" ]
+
 # Entrypoint script
 ENTRYPOINT ["/opt/softwareag/entrypoint.sh"]
