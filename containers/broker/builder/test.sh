@@ -9,8 +9,7 @@ if [ -d $SAG_HOME/profiles/SPM ] ; then
     sagcc get inventory products -e Broker --wait-for-cc
 
     echo "Verifying fixes ..."
-    sagcc get inventory fixes
-    # -e wMFix.Broker.Core.LNXAMD64
+    sagcc get inventory fixes -e wMFix.Broker.Core.LNXAMD64
 fi
 
 echo "DONE testing"

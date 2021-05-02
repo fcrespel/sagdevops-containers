@@ -68,6 +68,20 @@ fi
 echo "Creating Broker ${BROKER_NAME} ..."
 $SAG_HOME/Broker/bin/broker_create "${BROKER_NAME:-default}" -default
 
+# Create JNDI objects
+echo "Creating JNDI objects ..."
+BROKER_HOSTNAME_INTERNAL=$(hostname -f)
+sed -e "s#{{BROKER_NAME}}#${BROKER_NAME:-default}#g" \
+    -e "s#{{BROKER_HOSTNAME_INTERNAL}}#${BROKER_HOSTNAME_INTERNAL}#g" \
+    "jmsadmin.properties" > "jmsadmin.properties.tmp"
+sed -e "s#{{BROKER_NAME}}#${BROKER_NAME:-default}#g" \
+    -e "s#{{BROKER_HOSTNAME}}#${BROKER_HOSTNAME:-broker}#g" \
+    -e "s#{{BROKER_HOSTNAME_INTERNAL}}#${BROKER_HOSTNAME_INTERNAL}#g" \
+    -e "s#{{BROKER_PORT}}#${BROKER_PORT:-6849}#g" \
+    "jmsadmin.script" > "jmsadmin.script.tmp"
+$SAG_HOME/Broker/bin/jmsadmin -p "jmsadmin.properties.tmp" -f "jmsadmin.script.tmp"
+rm -f "jmsadmin.properties.tmp" "jmsadmin.script.tmp"
+
 # Show logs
 echo "Broker server started"
 tail -f "$BROKER_DATA_DIR/logmsgs" &

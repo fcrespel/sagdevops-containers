@@ -29,7 +29,9 @@ ENV BROKER_DATA_DIR="$SAG_HOME/Broker/data" \
     BROKER_DATA_SIZE="4G" \
     BROKER_DATA_PARAMS="async,max_cache_size=512" \
     BROKER_SERVER_PARAMS="max-memory-size=1024 max-recv-events=400" \
-    BROKER_NAME="default"
+    BROKER_NAME="default" \
+    BROKER_HOSTNAME="broker" \
+    BROKER_PORT="6849"
 
 # Initialize data directory
 RUN mkdir -p "$BROKER_DATA_DIR"

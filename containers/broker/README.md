@@ -26,6 +26,8 @@ The following environment variables can be used with this container.
 | BROKER_DATA_PARAMS | Data store params | async,max_cache_size=512 |
 | BROKER_SERVER_PARAMS | Server awbroker.cfg config as key=value key=value ... | max-memory-size=1024 max-recv-events=400 |
 | BROKER_NAME | Broker name | default |
+| BROKER_HOSTNAME | External Broker server host name | broker |
+| BROKER_PORT | External Broker server port | 6849 |
 
 ## Volumes
 
