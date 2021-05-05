@@ -12,6 +12,7 @@ environments:
     agw.memory.max:      512
     agw.package.list:    WmAPIGateway
     agw.fixes:           ALL
+    tc.license.key:      terracotta-license.key
 
 layers:
   runtime:
@@ -23,6 +24,7 @@ templates:
   agw-server:
     licenses:
       "IntegrationServer/config/licenseKey.xml": ${agw.license.key}
+      "common/conf/terracotta-license.key": ${tc.license.key} 
     fixes: ${agw.fixes}
     products:
       YAI:

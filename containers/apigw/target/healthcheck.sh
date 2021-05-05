@@ -1,3 +1,3 @@
 #!/bin/sh
 
-curl -sSf -H "Accept: application/json" "http://localhost:5555/invoke/wm.server/ping"
+curl -sSf -H "Accept: application/json" "http://localhost:5555/rest/apigateway/health"
