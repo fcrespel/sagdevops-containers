@@ -8,7 +8,8 @@ ARG BASE_IMAGE
 FROM $BUILDER_IMAGE as builder
 
 # Provision, unit test, cleanup
-RUN $CC_HOME/provision.sh && $CC_HOME/test.sh && $CC_HOME/cleanup.sh
+RUN $CC_HOME/provision.sh && $CC_HOME/test.sh && $CC_HOME/cleanup.sh && \
+    rm -Rf $SAG_HOME/InternalDataStore/data/nodes
 
 # Target image
 FROM $BASE_IMAGE
@@ -21,6 +22,9 @@ COPY --from=builder --chown=1724:1724 $SAG_HOME/ $SAG_HOME/
 
 # Add overlay from target directory
 ADD --chown=1724:1724 target/ $SAG_HOME/
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=300s --retries=5 CMD [ "/opt/softwareag/healthcheck.sh" ]
 
 # Entrypoint script
 ENTRYPOINT ["/opt/softwareag/entrypoint.sh"]
