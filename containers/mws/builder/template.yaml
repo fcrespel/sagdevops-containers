@@ -3,11 +3,7 @@ description: My webMethods Server
 
 environments:
   default:
-    db.type:             ${}
-    db.url:              ${}
-    db.username:         ${}
-    db.password:         ${}
-    db.name:             ${}
+    db.type:             internal
     mws.instance.name:   default
     mws.http.port:       8585
     mws.https.port:      8586
@@ -21,33 +17,17 @@ environments:
     mws.fixes:           ALL
 
 layers:
-  db:
-    productRepo:           ${repo.product}
-    fixRepo:               ${repo.fix}
-    templates:             mws-db
-    databases:
-      schemas:
-        products:          MywebMethodsServer
-        version:           latest
-        db.type:           ${db.type}
-        db.url:            ${db.url}
-        db.username:       ${db.username}
-        db.password:       ${db.password}
-        db.name:           ${db.name}
   runtime:
     productRepo: ${repo.product}
     fixRepo:     ${repo.fix}
     templates:   mws-server
 
 templates:
-  mws-db:
-    products:
-    - DatabaseComponentConfigurator
-    - MWScdc
-    fixes: ALL
   mws-server:
     fixes: ${mws.fixes}
     products:
+      DatabaseComponentConfigurator:
+      MWScdc:
       Messaging:
       monitorUI:
       MwsProgramFiles:
@@ -57,9 +37,6 @@ templates:
           https.port: ${mws.https.port}
           jmx.port: ${mws.jmx.port}
           db.type: ${db.type}
-          db.url: "${db.url}"
-          db.username: "${db.username}"
-          db.password: "${db.password}"
           configuration:
             OSGI-MWS_${instance.name}:
               COMMON-MEMORY:
@@ -82,5 +59,4 @@ templates:
 
 provision:
   default:
-    db: ${nodes}
     runtime: ${nodes}

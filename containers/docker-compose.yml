@@ -256,26 +256,8 @@ services:
       - CC_AUTO_REGISTER
       - JAVA_MIN_MEM=512
       - JAVA_MAX_MEM=512
-      - MWS_DB_TYPE=postgresql
-      - MWS_DB_URL=jdbc:wm:postgresql://mws-db:5432;databaseName=mws
-      - MWS_DB_USERNAME=mws
-      - MWS_DB_PASSWORD=mws
-      - MWS_DB_NAME=mws
-    stop_grace_period: 30s
-    depends_on:
-      - mws-db
-
-  # My webMethods Server database (PostgreSQL)
-  mws-db:
-    image: postgres:10
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_USER=mws
-      - POSTGRES_PASSWORD=mws
-      - POSTGRES_DB=mws
     volumes:
-      - 'mws-db:/var/lib/postgresql/data'
+      - 'mws-db:/opt/softwareag/MWS/server/default/data/db'
     stop_grace_period: 30s
 
   # Terracotta Management Console

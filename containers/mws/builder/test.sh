@@ -25,11 +25,11 @@ fi
 
 echo "Verifying product runtime ..."
 RETRY=20
-while [ $RETRY -gt 0 ] && ! curl -sf http://`hostname`:8585; do
+while [ $RETRY -gt 0 ] && ! curl -sf http://`hostname`:8585 -o /dev/null; do
     sleep 3
     RETRY=$((RETRY-1))
 done
-curl -sf http://`hostname`:8585
+curl -sf http://`hostname`:8585 -o /dev/null
 
 if [ -d $SAG_HOME/profiles/SPM ] ; then
     echo "Shut down the instance ..."

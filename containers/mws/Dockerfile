@@ -7,23 +7,8 @@ ARG BASE_IMAGE
 # Source image
 FROM $BUILDER_IMAGE as builder
 
-# Install PostgreSQL
-USER 0
-RUN yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm && \
-    yum install -y postgresql10-server && \
-    yum clean all && \
-    chown 1724 /var/run/postgresql
-USER 1724
-
 # Provision, unit test, cleanup
-RUN mkdir -p $CC_HOME/pgsql/data && \
-    echo mws > $CC_HOME/pgsql/pwd && \
-    /usr/pgsql-10/bin/initdb -D $CC_HOME/pgsql/data --auth=trust --auth-host=md5 --locale=en_US.utf8 --username=mws --pwfile=$CC_HOME/pgsql/pwd && \
-    /usr/pgsql-10/bin/pg_ctl start -D $CC_HOME/pgsql/data -w && \
-    /usr/pgsql-10/bin/createdb mws --username=mws --locale=en_US.utf8 && \
-    $CC_HOME/provision.sh && $CC_HOME/test.sh && $CC_HOME/cleanup.sh && \
-    /usr/pgsql-10/bin/pg_ctl stop -D $CC_HOME/pgsql/data -w -m fast && \
-    rm -Rf $CC_HOME/pgsql
+RUN $CC_HOME/provision.sh && $CC_HOME/customize.sh && $CC_HOME/test.sh && $CC_HOME/cleanup.sh
 
 # Target image
 FROM $BASE_IMAGE
@@ -38,11 +23,7 @@ COPY --from=builder --chown=1724:1724 $SAG_HOME/ $SAG_HOME/
 ADD --chown=1724:1724 target/ $SAG_HOME/
 
 # Environment variables
-ENV MWS_DB_TYPE="postgresql" \
-    MWS_DB_URL="jdbc:wm:postgresql://mws-db:5432;databaseName=mws" \
-    MWS_DB_USERNAME="mws" \
-    MWS_DB_PASSWORD="mws" \
-    MWS_DB_NAME="mws"
+ENV MWS_DB_TYPE="internal"
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=300s --retries=5 CMD [ "/opt/softwareag/healthcheck.sh" ]

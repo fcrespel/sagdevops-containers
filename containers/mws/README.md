@@ -20,11 +20,11 @@ The following environment variables can be used with this container.
 | -------- | ----------- | ------------- |
 | JAVA_MIN_MEM | Minimum Java heap size in MB | 512 |
 | JAVA_MAX_MEM | Maximum Java heap size in MB | 512 |
-| MWS_DB_TYPE | Database type (oracle, postgresql, ...) | postgresql |
-| MWS_DB_URL | Database JDBC URL | jdbc:wm:postgresql://mws-db:5432;databaseName=mws |
-| MWS_DB_USERNAME | Database user name | mws |
-| MWS_DB_PASSWORD | Database user password | mws |
-| MWS_DB_NAME | Database name | mws |
+| MWS_DB_TYPE | Database type (oracle, postgresql, mysqlce, ...) | internal |
+| MWS_DB_URL | Database JDBC URL | |
+| MWS_DB_USERNAME | Database user name | |
+| MWS_DB_PASSWORD | Database user password | |
+| MWS_DB_NAME | Database name | |
 
 ## Volumes
 
@@ -32,6 +32,7 @@ Using a dedicated volume is recommended for the following paths.
 
 | Path | Description |
 | ---- | ----------- |
+| /opt/softwareag/MWS/server/default/data/db | Internal database data |
 | /opt/softwareag/MWS/server/default/logs | Server logs |
 
 ## Build arguments
