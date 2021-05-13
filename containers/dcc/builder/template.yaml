@@ -1,0 +1,26 @@
+alias: sag-dcc
+description: Database Component Configurator
+
+environments:
+  default:  
+    dcc.fixes: ALL
+
+layers:
+  runtime:
+    productRepo: ${repo.product}
+    fixRepo:     ${repo.fix}
+    templates:   dcc
+
+templates:
+  dcc:
+    fixes: ${dcc.fixes}
+    products:
+      DatabaseComponentConfigurator:
+      MWScdc:
+      PIEcdc:
+      WMNcdc:
+      WPEcdc:
+
+provision:
+  default:
+    runtime: ${nodes}

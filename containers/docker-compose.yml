@@ -119,6 +119,27 @@ services:
       - 'broker-data:/opt/softwareag/Broker/data'
     stop_grace_period: 30s
 
+  # Database Component Configurator
+  dcc:
+    image: ${REG}/dcc:${TAG}
+    build:
+      context: dcc/
+      args:
+        - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
+        - BASE_IMAGE=${REG}/java:${TAG}
+        - REPO_PRODUCT_URL
+        - REPO_FIX_URL
+        - REPO_USERNAME
+        - REPO_PASSWORD
+        - LICENSES_URL
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=Database Component Configurator"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
+
   # Internal Data Store (Elasticsearch)
   ids:
     image: ${REG}/ids:${TAG}

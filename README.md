@@ -48,6 +48,7 @@ Go to the `containers` directory and execute `docker-compose build <product>` to
 - `abe`: Asset Build Environment
 - `apigw`: API Gateway
 - `broker`: Broker Server
+- `dcc`: Database Component Configurator
 - `ids`: Internal Data Store (Elasticsearch)
 - `is`: Integration Server (with CloudStreams, JDBC and Kafka Adapters)
 - `msr`: Microservices Runtime (with CloudStreams, JDBC and Kafka Adapters)
