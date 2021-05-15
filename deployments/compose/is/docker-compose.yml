@@ -1,0 +1,44 @@
+version: "3.2"
+
+services:
+  # Integration Server
+  is:
+    image: ${REG}/is:${TAG}
+    ports:
+      - '5554:5554'
+      - '5555:5555'
+      - '5556:5556'
+    environment:
+      - JAVA_MIN_MEM=512
+      - JAVA_MAX_MEM=512
+      - IS_USER_PWD_Administrator=manage
+      - IS_JNDI_URL_DEFAULT_IS_JNDI_PROVIDER=nsp://um:9000
+      - watt.debug.level=Info
+    volumes:
+      - 'is-cache:/opt/softwareag/IntegrationServer/instances/default/cacheStore'
+      - 'is-db:/opt/softwareag/IntegrationServer/instances/default/db'
+      - 'is-ds:/opt/softwareag/IntegrationServer/instances/default/DocumentStore'
+      - 'is-packages:/opt/softwareag/IntegrationServer/instances/default/packages'
+      - 'is-xa:/opt/softwareag/IntegrationServer/instances/default/XAStore'
+    stop_grace_period: 30s
+
+  # Universal Messaging
+  um:
+    image: ${REG}/um:${TAG}
+    ports:
+      - "9000:9000"
+    hostname: um
+    environment:
+      - JAVA_MIN_MEM=512
+      - JAVA_MAX_MEM=512
+    volumes:
+      - 'um-data:/opt/softwareag/UniversalMessaging/server/default/data'
+    stop_grace_period: 30s
+
+volumes:
+  is-cache:
+  is-db:
+  is-ds:
+  is-packages:
+  is-xa:
+  um-data:

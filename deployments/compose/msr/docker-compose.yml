@@ -1,0 +1,38 @@
+version: "3.2"
+
+services:
+  # Microservices Runtime
+  msr:
+    image: ${REG}/msr:${TAG}
+    ports:
+      - "5555:5555"
+    hostname: msr
+    environment:
+      - JAVA_MIN_MEM=512m
+      - JAVA_MAX_MEM=512m
+    volumes:
+      - './autodeploy:/opt/softwareag/IntegrationServer/replicate/autodeploy'
+      - './application.properties:/opt/softwareag/IntegrationServer/application.properties'
+      - 'msr-cache:/opt/softwareag/IntegrationServer/cacheStore'
+      - 'msr-db:/opt/softwareag/IntegrationServer/db'
+      - 'msr-xa:/opt/softwareag/IntegrationServer/XAStore'
+    stop_grace_period: 30s
+
+  # Universal Messaging
+  um:
+    image: ${REG}/um:${TAG}
+    ports:
+      - "9000:9000"
+    hostname: um
+    environment:
+      - JAVA_MIN_MEM=512
+      - JAVA_MAX_MEM=512
+    volumes:
+      - 'um-data:/opt/softwareag/UniversalMessaging/server/default/data'
+    stop_grace_period: 30s
+
+volumes:
+  msr-cache:
+  msr-db:
+  msr-xa:
+  um-data:
