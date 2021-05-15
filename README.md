@@ -48,6 +48,7 @@ Go to the `containers` directory and execute `docker-compose build <product>` to
 - `abe`: Asset Build Environment
 - `apigw`: API Gateway (with Elasticsearch and Kibana)
 - `apigw-es`: API Gateway Data Store (Elasticsearch) only
+- `apigw-kibana`: API Gateway Kibana only
 - `broker`: Broker Server
 - `dcc`: Database Component Configurator
 - `is`: Integration Server (with CloudStreams, JDBC and Kafka Adapters)
