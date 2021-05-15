@@ -74,6 +74,12 @@ Examples are provided for GitLab (see `.gitlab-ci.yml`) and GitHub Actions (see 
 
 Once a product image is built, you may run it anywhere with Docker or container orchestration tools like Kubernetes. You will also probably want to build additional images on top of it, e.g. to customize configuration, add files, or add packages on Integration Server.
 
-To test them locally, go to the `containers` directory and execute `docker-compose up -d <product>` with the same product names as described above. Refer to the `docker-compose.yml` file to see which ports are available.
+### Local testing
+
+To test product images locally, go to the `containers` directory and execute `docker-compose up -d <product>` with the same product names as described above. Refer to the `docker-compose.yml` file to see which ports are available.
 
 You may also start the Command Central container with `docker-compose up -d cc`. If you start it before other containers, and if you set environment variable `CC_AUTO_REGISTER=1`, each product container will automatically register to it during startup. This can be useful to inspect the various configuration parameters supported by each product and export this configuration to YAML templates.
+
+### Deployment
+
+Sample deployments are available in the `deployments` directory, e.g. using Docker Compose. They can serve as a starting point to build your own.

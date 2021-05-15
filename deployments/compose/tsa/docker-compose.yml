@@ -1,0 +1,45 @@
+version: "3.2"
+
+services:
+  # Terracotta Server node 1
+  tsa-1:
+    image: ${REG}/tsa:${TAG}
+    ports:
+      - "9510:9510"
+      - "9540:9540"
+    hostname: tsa-1
+    environment:
+      - TC_NODE_NAME=tsa-1
+      - TC_NODES=tsa-1,tsa-2
+    volumes:
+      - 'tsa-1-data:/opt/softwareag/Terracotta/server/data'
+      - 'tsa-1-index:/opt/softwareag/Terracotta/server/index'
+
+  # Terracotta Server node 2
+  tsa-2:
+    image: ${REG}/tsa:${TAG}
+    ports:
+      - "9610:9510"
+      - "9640:9540"
+    hostname: tsa-2
+    environment:
+      - TC_NODE_NAME=tsa-2
+      - TC_NODES=tsa-1,tsa-2
+    volumes:
+      - 'tsa-2-data:/opt/softwareag/Terracotta/server/data'
+      - 'tsa-2-index:/opt/softwareag/Terracotta/server/index'
+
+  # Terracotta Management Console
+  tmc:
+    image: ${REG}/tmc:${TAG}
+    ports:
+      - "9889:9889"
+    hostname: tmc
+    environment:
+      - TSA_URL=http://tsa-1:9540,http://tsa-2:9540
+
+volumes:
+  tsa-1-data:
+  tsa-1-index:
+  tsa-2-data:
+  tsa-2-index:

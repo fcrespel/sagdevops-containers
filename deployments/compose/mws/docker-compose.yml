@@ -1,0 +1,65 @@
+version: "3.2"
+
+services:
+  # My webMethods Server
+  mws:
+    image: ${REG}/mws:${TAG}
+    ports:
+      - "8585:8585"
+      - "8586:8586"
+    hostname: mws
+    environment:
+      - JAVA_MIN_MEM=512
+      - JAVA_MAX_MEM=512
+      ### Internal Derby database config (default):
+      # - MWS_DB_TYPE=internal
+      ### MySQL database config:
+      # - MWS_DB_TYPE=mysqlce
+      # - MWS_DB_URL=jdbc:mysql://mws-db-mysql:3306/mws?useSSL=false
+      ### PostgreSQL database config:
+      # - MWS_DB_TYPE=postgresql
+      # - MWS_DB_URL=jdbc:wm:postgresql://mws-db-pg:5432;databaseName=mws
+      - MWS_DB_USERNAME=mws
+      - MWS_DB_PASSWORD=mws
+      - MWS_DB_NAME=mws
+    volumes:
+      - 'mws-db:/opt/softwareag/MWS/server/default/data/db'
+    stop_grace_period: 30s
+    # depends_on:
+    #   - mws-db-mysql
+    #   - mws-db-pg
+
+  # MySQL database
+  mws-db-mysql:
+    image: mysql:5.7
+    hostname: mws-db-mysql
+    command:
+      - '--character-set-server=utf8'
+      - '--collation-server=utf8_general_ci'
+      - '--default-time-zone=+00:00'
+      - '--sql-mode=NO_ENGINE_SUBSTITUTION,PIPES_AS_CONCAT'
+      - '--lower-case-table-names=1'
+      - '--max-allowed-packet=24M'
+    environment:
+      - MYSQL_ROOT_PASSWORD=mws
+      - MYSQL_USER=mws
+      - MYSQL_PASSWORD=mws
+      - MYSQL_DATABASE=mws
+    volumes:
+      - 'mws-db-mysql:/var/lib/mysql'
+
+  # PostgreSQL database
+  mws-db-pg:
+    image: postgres:10
+    hostname: mws-db-pg
+    environment:
+      - POSTGRES_USER=mws
+      - POSTGRES_PASSWORD=mws
+      - POSTGRES_DB=mws
+    volumes:
+      - 'mws-db-pg:/var/lib/postgresql/data'
+
+volumes:
+  mws-db:
+  mws-db-mysql:
+  mws-db-pg:
