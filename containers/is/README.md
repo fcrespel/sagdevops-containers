@@ -25,6 +25,7 @@ The following environment variables can be used with this container.
 | SYNC_PACKAGES | Sync packages from image to instance at startup | true |
 | SYNC_CONFIG | Sync config from image to instance at startup | true |
 | IS_USER_PWD_xxx | Password for user xxx (Administrator, proxyuser, etc.) | |
+| IS_JNDI_URL_xxx | JNDI URL for alias xxx | |
 | watt.xxx | Value for Extended Setting xxx (watt.debug.level, etc.) | |
 
 ## Volumes

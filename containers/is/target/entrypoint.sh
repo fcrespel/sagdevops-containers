@@ -40,6 +40,13 @@ while IFS='=' read -r k v; do
             xsltproc --stringparam password "$v" update-pwd.xsl.tmp "$IS_INSTANCE/config/users.cnf" > "$IS_INSTANCE/config/users.cnf.tmp"
             mv -f "$IS_INSTANCE/config/users.cnf.tmp" "$IS_INSTANCE/config/users.cnf"
             rm -f update-pwd.xsl.tmp
+        elif [[ "$k" =~ ^IS_JNDI_URL_.* ]]; then
+            # JNDI alias
+            JNDI_NAME="${k//IS_JNDI_URL_/}"
+            if [ -e "$IS_INSTANCE/config/jndi/jndi_${JNDI_NAME}.properties" ]; then
+                echo "- Updating JNDI alias $JNDI_NAME"
+                sed -i "s#^java.naming.provider.url=.*\$#java.naming.provider.url=${v//:/\\:}#g" "$IS_INSTANCE/config/jndi/jndi_${JNDI_NAME}.properties"
+            fi
         elif [[ "$k" =~ ^watt\..* ]]; then
             # Extended Settings
             if grep -q "^$k=" "$IS_INSTANCE/config/server.cnf"; then
