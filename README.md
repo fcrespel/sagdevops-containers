@@ -46,10 +46,10 @@ Go to the `containers` directory and execute `docker-compose build <product>` to
 
 - `hello-world`: a simple Hello World showing build arguments and environment variables.
 - `abe`: Asset Build Environment
-- `apigw`: API Gateway
+- `apigw`: API Gateway (with Elasticsearch and Kibana)
+- `apigw-es`: API Gateway Data Store (Elasticsearch) only
 - `broker`: Broker Server
 - `dcc`: Database Component Configurator
-- `ids`: Internal Data Store (Elasticsearch)
 - `is`: Integration Server (with CloudStreams, JDBC and Kafka Adapters)
 - `msr`: Microservices Runtime (with CloudStreams, JDBC and Kafka Adapters)
 - `mws`: My webMethods Server

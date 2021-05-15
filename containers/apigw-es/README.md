@@ -1,4 +1,4 @@
-# Internal Data Store (Elasticsearch)
+# API Gateway Data Store (Elasticsearch)
 
 ## Ports
 

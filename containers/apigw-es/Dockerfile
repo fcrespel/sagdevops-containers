@@ -1,4 +1,4 @@
-### Internal Data Store (Elasticsearch) image
+### API Gateway Data Store (Elasticsearch) image
 
 # Arguments
 ARG BUILDER_IMAGE

@@ -83,10 +83,48 @@ services:
       - CC_AUTO_REGISTER
       - JAVA_MIN_MEM=512
       - JAVA_MAX_MEM=512
-      - apigw_elasticsearch_hosts=ids:9240
+      - apigw_elasticsearch_hosts=apigw-es:9240
     stop_grace_period: 30s
     depends_on:
-      - ids
+      - apigw-es
+
+  # API Gateway Data Store (Elasticsearch)
+  apigw-es:
+    image: ${REG}/apigw-es:${TAG}
+    build:
+      context: apigw-es/
+      args:
+        - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
+        - BASE_IMAGE=${REG}/java:${TAG}
+        - REPO_PRODUCT_URL
+        - REPO_FIX_URL
+        - REPO_USERNAME
+        - REPO_PASSWORD
+        - LICENSES_URL
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=API Gateway Data Store (Elasticsearch)"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
+    ports:
+      - "9240:9240"
+    hostname: apigw-es
+    environment:
+      - CC_AUTO_REGISTER
+      - node.name=apigw-es
+      - discovery.seed_hosts=apigw-es:9340
+      - cluster.initial_master_nodes=apigw-es
+      - bootstrap.memory_lock=true
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+    volumes:
+      - 'apigw-es-data:/opt/softwareag/InternalDataStore/data'
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    stop_grace_period: 30s
 
   # Broker Server
   broker:
@@ -139,44 +177,6 @@ services:
         - "org.opencontainers.image.url=${IMAGE_URL:-}"
         - "org.opencontainers.image.vendor=SoftwareAG"
         - "org.opencontainers.image.version=${TAG}"
-
-  # Internal Data Store (Elasticsearch)
-  ids:
-    image: ${REG}/ids:${TAG}
-    build:
-      context: ids/
-      args:
-        - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
-        - BASE_IMAGE=${REG}/java:${TAG}
-        - REPO_PRODUCT_URL
-        - REPO_FIX_URL
-        - REPO_USERNAME
-        - REPO_PASSWORD
-        - LICENSES_URL
-      labels:
-        - "org.opencontainers.image.licenses=SoftwareAG"
-        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
-        - "org.opencontainers.image.title=Internal Data Store"
-        - "org.opencontainers.image.url=${IMAGE_URL:-}"
-        - "org.opencontainers.image.vendor=SoftwareAG"
-        - "org.opencontainers.image.version=${TAG}"
-    ports:
-      - "9240:9240"
-    hostname: ids
-    environment:
-      - CC_AUTO_REGISTER
-      - node.name=ids
-      - discovery.seed_hosts=ids:9340
-      - cluster.initial_master_nodes=ids
-      - bootstrap.memory_lock=true
-      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
-    volumes:
-      - 'ids-data:/opt/softwareag/InternalDataStore/data'
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    stop_grace_period: 30s
 
   # Integration Server
   is:
@@ -370,10 +370,10 @@ services:
     stop_grace_period: 30s
 
 volumes:
+  apigw-es-data:
   broker-data:
   cce-conf:
   cce-data:
-  ids-data:
   is-cache:
   is-db:
   is-ds:
