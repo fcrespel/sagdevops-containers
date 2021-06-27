@@ -25,16 +25,6 @@ The following arguments can be used when building the container image.
 | -------- | ----------- | ------------- |
 | BASE_IMAGE | Base image (cc-server) | |
 | NODE_IMAGE | Node image (cc-node) | |
-| REPO_USERNAME | Empower or mirror username | |
-| REPO_PASSWORD | Empower or mirror password | |
-| REPO_PRODUCT_URL | Product repository URL | |
-| REPO_PRODUCT_NAME | Product repository name | products |
-| REPO_FIX_URL | Fix repository URL | https://sdc.softwareag.com/updates/prodRepo |
-| REPO_FIX_NAME | Fix repository name | fixes |
-| LICENSES_URL | Licenses ZIP file URL | |
-
-WARNING: credentials and licenses will be persisted in the resulting image if used at this stage.
-It is recommended to use the alternative method below, by providing arguments at build time of child images.
 
 The following arguments can be used when using this image as a base image (onbuild).
 

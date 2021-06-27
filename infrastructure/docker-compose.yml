@@ -8,24 +8,6 @@ services:
       args:
         - BASE_IMAGE=centos:7
 
-  java:
-    image: ${REG}/java:${TAG}
-    build:
-      context: java/
-      args:
-        - BUILDER_IMAGE=${REG}/cc-server:${TAG}
-        - BASE_IMAGE=${REG}/base:${TAG}
-      labels:
-        - "org.opencontainers.image.licenses=SoftwareAG"
-        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
-        - "org.opencontainers.image.title=Java base image"
-        - "org.opencontainers.image.url=${IMAGE_URL:-}"
-        - "org.opencontainers.image.vendor=SoftwareAG"
-        - "org.opencontainers.image.version=${TAG}"
-    depends_on: 
-      - cc-server
-      - base
-
   cc-server:
     image: ${REG}/cc-server:${TAG}
     build:
@@ -50,9 +32,13 @@ services:
       context: cc-node/
       args:
         - BUILDER_IMAGE=${REG}/cc-server:${TAG}
-        - BASE_IMAGE=${REG}/java:${TAG}
+        - BASE_IMAGE=${REG}/base:${TAG}
         - CC_INSTALLER
         - CC_INSTALLER_URL
+        - REPO_PRODUCT_URL
+        - REPO_FIX_URL
+        - REPO_USERNAME
+        - REPO_PASSWORD
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
         - "org.opencontainers.image.revision=${IMAGE_REV:-}"
@@ -62,7 +48,7 @@ services:
         - "org.opencontainers.image.version=${TAG}"
     depends_on: 
       - cc-server
-      - java
+      - base
 
   cc-builder:
     image: ${REG}/cc-builder:${TAG}
@@ -86,3 +72,21 @@ services:
     depends_on:
       - cc-server
       - cc-node
+
+  java:
+    image: ${REG}/java:${TAG}
+    build:
+      context: java/
+      args:
+        - BUILDER_IMAGE=${REG}/cc-node:${TAG}
+        - BASE_IMAGE=${REG}/base:${TAG}
+      labels:
+        - "org.opencontainers.image.licenses=SoftwareAG"
+        - "org.opencontainers.image.revision=${IMAGE_REV:-}"
+        - "org.opencontainers.image.title=Java base image"
+        - "org.opencontainers.image.url=${IMAGE_URL:-}"
+        - "org.opencontainers.image.vendor=SoftwareAG"
+        - "org.opencontainers.image.version=${TAG}"
+    depends_on: 
+      - cc-node
+      - base

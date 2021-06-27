@@ -27,10 +27,8 @@ ADD --chown=1724:1724 target/ $CC_HOME/
 WORKDIR $CC_HOME
 
 # Install Command Central + SPM
-RUN $CC_HOME/bootstrap.sh && \
-	NODES=local SAG_HOME=$CC_HOME $CC_HOME/provision.sh && \
-    rm -Rf $CC_HOME/jvm/*.bck && \
-    rm -f $CC_HOME/jvm/jvm/src.zip
+RUN export NODES=local SAG_HOME=$CC_HOME && \
+    $CC_HOME/bootstrap.sh && $CC_HOME/provision.sh && $CC_HOME/cleanup.sh light
 
 # Expose ports
 EXPOSE 8090 8091 8992 8993

@@ -42,7 +42,12 @@ Once these images are built successfully, you may proceed with building individu
 
 ### Product images
 
-Go to the `containers` directory and execute `docker-compose build <product>` to create an image for one of the following products:
+Go to the `containers` directory and prepare your environment:
+
+- Edit the `.env` file to fill in your Empower credentials (be careful, never commit them to GitHub!). Alternatively, you may also set them in your terminal or CI tool with `export REPO_USERNAME=your-username` and `export REPO_PASSWORD=your-password`.
+- If you didn't provide licenses during the infrastructure build, you may set a `LICENSES_URL` environment variable to have it downloaded automatically during the build.
+
+Then execute `docker-compose build <product>` to create an image for one of the following products:
 
 - `hello-world`: a simple Hello World showing build arguments and environment variables.
 - `abe`: Asset Build Environment
