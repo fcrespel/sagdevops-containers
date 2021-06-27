@@ -75,6 +75,7 @@ sed -e "s#{{BROKER_NAME}}#${BROKER_NAME:-default}#g" \
     -e "s#{{BROKER_HOSTNAME_INTERNAL}}#${BROKER_HOSTNAME_INTERNAL}#g" \
     "jmsadmin.properties" > "jmsadmin.properties.tmp"
 sed -e "s#{{BROKER_NAME}}#${BROKER_NAME:-default}#g" \
+    -e "s#{{BROKER_CLIENTGROUP}}#${BROKER_CLIENTGROUP}#g" \
     -e "s#{{BROKER_HOSTNAME}}#${BROKER_HOSTNAME:-broker}#g" \
     -e "s#{{BROKER_HOSTNAME_INTERNAL}}#${BROKER_HOSTNAME_INTERNAL}#g" \
     -e "s#{{BROKER_PORT}}#${BROKER_PORT:-6849}#g" \
