@@ -25,6 +25,8 @@ environments:
     is.ws.thread.max:                 300
     is.ws.thread.backlog:             65534
     is.ws.thread.keepAliveTimeout:    20000
+    is.ws.endpoint.http.port:         5556
+    is.ws.endpoint.https.port:        6555
 
 layers:
   runtime:
@@ -125,6 +127,23 @@ templates:
                     User:
                     - Developer
                     - proxyuser
+              IS-PROVIDER-ENDPOINTS:
+                IS-PROVIDER-ENDPOINTS-HTTP-HTTP:
+                  '@alias': HTTP
+                  Provider:
+                    Transport:
+                      Protocol: HTTP
+                      Host: localhost
+                      Port: '${is.ws.endpoint.http.port}'
+                    WSSecurity:
+                IS-PROVIDER-ENDPOINTS-HTTPS-HTTPS:
+                  '@alias': HTTPS
+                  Provider:
+                    Transport:
+                      Protocol: HTTPS
+                      Host: localhost
+                      Port: '${is.ws.endpoint.https.port}'
+                    WSSecurity:
               IS-SYSPROPS:
                 IS-SYSPROPS:
                   Settings: |
@@ -146,6 +165,8 @@ templates:
                     watt.server.ns.hideWmRoot=false
                     watt.server.portStateless=5554,5556
                     watt.server.serverlogFilesToKeep=7
+                    watt.server.SOAP.default.endpointHTTP=HTTP
+                    watt.server.SOAP.default.endpointHTTPS=HTTPS
                     watt.server.stats.logFilesToKeep=7
                     watt.server.threadPool=500
       Deployer:     # WmDeployer

@@ -26,6 +26,10 @@ The following environment variables can be used with this container.
 | SYNC_CONFIG | Sync config from image to instance at startup | true |
 | IS_USER_PWD_xxx | Password for user xxx (Administrator, proxyuser, etc.) | |
 | IS_JNDI_URL_xxx | JNDI URL for alias xxx | |
+| WS_HTTP_LB_HOST | Web service provider endpoint hostname | $(hostname -f) |
+| WS_HTTP_LB_PORT | Web service provider endpoint port | 5556 |
+| WS_HTTPS_LB_HOST | Web service provider endpoint hostname | $(hostname -f) |
+| WS_HTTPS_LB_PORT | Web service provider endpoint port | 6555 |
 | watt.xxx | Value for Extended Setting xxx (watt.debug.level, etc.) | |
 
 ## Volumes
