@@ -1,0 +1,27 @@
+version: "3.2"
+
+services:
+  # Command Central
+  cc:
+    image: ${REG}/cc-server:${TAG}
+    ports:
+      - "8091:8091"
+    hostname: cc
+    environment:
+      - CC_PASSWORD
+      - REPO_PRODUCT_URL
+      - REPO_FIX_URL
+      - REPO_USERNAME
+      - REPO_PASSWORD
+      - LICENSES_URL
+    volumes:
+      - 'cce-conf:/opt/sagtools/profiles/CCE/conf'
+      - 'cce-data:/opt/sagtools/profiles/CCE/data'
+      - 'spm-conf:/opt/sagtools/profiles/SPM/conf'
+      - 'spm-data:/opt/sagtools/profiles/SPM/data'
+
+volumes:
+  cce-conf:
+  cce-data:
+  spm-conf:
+  spm-data:
