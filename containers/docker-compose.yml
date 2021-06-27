@@ -15,10 +15,10 @@ services:
       - REPO_PASSWORD
       - LICENSES_URL
     volumes:
-      - 'cce-conf:/opt/softwareag/profiles/CCE/conf'
-      - 'cce-data:/opt/softwareag/profiles/CCE/data'
-      - 'spm-conf:/opt/softwareag/profiles/SPM/conf'
-      - 'spm-data:/opt/softwareag/profiles/SPM/data'
+      - 'cce-conf:/opt/sagtools/profiles/CCE/configuration'
+      - 'cce-data:/opt/sagtools/profiles/CCE/data'
+      - 'spm-conf:/opt/sagtools/profiles/SPM/configuration'
+      - 'spm-data:/opt/sagtools/profiles/SPM/data'
 
   # Hello World sample
   hello-world:
