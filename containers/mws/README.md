@@ -25,6 +25,7 @@ The following environment variables can be used with this container.
 | MWS_DB_USERNAME | Database user name | |
 | MWS_DB_PASSWORD | Database user password | |
 | MWS_DB_NAME | Database name | |
+| MWS_USER_PWD_xxx | Password for user xxx (Administrator, SysAdmin, Designer) | |
 
 ## Volumes
 

@@ -16,6 +16,19 @@ fi
 [ -n "$JAVA_MIN_MEM" ] && sed -i "s#^wrapper.java.initmemory=.*\$#wrapper.java.initmemory=$JAVA_MIN_MEM#g" $SAG_HOME/profiles/MWS_default/configuration/custom_wrapper.conf
 [ -n "$JAVA_MAX_MEM" ] && sed -i "s#^wrapper.java.maxmemory=.*\$#wrapper.java.maxmemory=$JAVA_MAX_MEM#g" $SAG_HOME/profiles/MWS_default/configuration/custom_wrapper.conf
 
+# Process environment variables
+echo "Processing environment variables ..."
+while IFS='=' read -r k v; do
+    if [ -n "$v" ]; then
+        if [[ "$k" =~ ^MWS_USER_PWD_.* ]]; then
+            # User password
+            USERNAME="${k//MWS_USER_PWD_/}"
+            echo "- Updating password for user $USERNAME"
+            echo "<CONTEXT alias=\"system.directory.user.storage\"><wm_xt_sysdiruser name=\"$USERNAME\" password=\"$v\" /></CONTEXT>" > "$SAG_HOME/MWS/server/default/deploy/user_$USERNAME.xml"
+        fi
+    fi
+done < <(env | sort)
+
 # Configure shutdown handler
 trap "$SAG_HOME/profiles/MWS_default/bin/shutdown.sh" SIGINT SIGTERM
 
