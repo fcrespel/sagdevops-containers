@@ -46,6 +46,13 @@ build_apigw:
     - docker-compose build apigw
     - docker-compose push apigw
 
+build_apigw_es:
+  stage: build_containers
+  script:
+    - cd containers
+    - docker-compose build apigw-es apigw-kibana
+    - docker-compose push apigw-es apigw-kibana
+
 build_broker:
   stage: build_containers
   script:
@@ -53,12 +60,12 @@ build_broker:
     - docker-compose build broker
     - docker-compose push broker
 
-build_ids:
+build_dcc:
   stage: build_containers
   script:
     - cd containers
-    - docker-compose build ids
-    - docker-compose push ids
+    - docker-compose build dcc
+    - docker-compose push dcc
 
 build_is:
   stage: build_containers
