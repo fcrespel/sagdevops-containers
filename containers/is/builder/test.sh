@@ -11,7 +11,7 @@ if [ -d $SAG_HOME/profiles/SPM ] ; then
     sagcc get inventory products -e integrationServer --wait-for-cc
 
     echo "Verifying fixes ..."
-    sagcc get inventory fixes -e wMFix.integrationServer.Core
+    sagcc get inventory fixes -e wMFix.integrationServer.Core || true
 
     echo "Verifying instances ..."
     sagcc get inventory components -e "OSGI-IS_${__is_instance_name}"

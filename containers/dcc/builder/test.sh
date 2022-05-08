@@ -9,7 +9,7 @@ if [ -d $SAG_HOME/profiles/SPM ] ; then
     sagcc get inventory products -e DatabaseComponentConfigurator --wait-for-cc
 
     echo "Verifying fixes ..."
-    sagcc get inventory fixes -e wMFix.DatabaseComponentConfigurator
+    sagcc get inventory fixes -e wMFix.DatabaseComponentConfigurator || true
 fi
 
 echo "DONE testing"

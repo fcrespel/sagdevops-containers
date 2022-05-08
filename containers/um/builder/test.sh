@@ -11,8 +11,7 @@ if [ -d $SAG_HOME/profiles/SPM ] ; then
     sagcc get inventory products -e NUMRealmServer --wait-for-cc
 
     echo "Verifying fixes ..."
-    sagcc get inventory fixes 
-    # -e wMFix.NUMRealmServer
+    sagcc get inventory fixes -e wMFix.NUMRealmServer || true
 
     echo "Verifying instances ..."
     sagcc get inventory components -e Universal-Messaging-${__um_instance_name}

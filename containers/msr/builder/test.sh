@@ -10,7 +10,7 @@ if [ -d $SAG_HOME/profiles/SPM ] ; then
     sagcc get inventory products -e MSC --wait-for-cc
 
     echo "Verifying fixes ..."
-    sagcc get inventory fixes -e wMFix.integrationServer.Core
+    sagcc get inventory fixes -e wMFix.integrationServer.Core || true
 fi
 
 echo "Start the instance ..."

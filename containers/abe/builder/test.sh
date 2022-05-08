@@ -9,7 +9,7 @@ if [ -d $SAG_HOME/profiles/SPM ] ; then
     sagcc get inventory products -e acdl --wait-for-cc
 
     echo "Verifying fixes ..."
-    sagcc get inventory fixes -e wMFix.acdl
+    sagcc get inventory fixes -e wMFix.acdl || true
 fi
 
 echo "DONE testing"

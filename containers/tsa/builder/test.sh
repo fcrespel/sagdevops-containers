@@ -10,7 +10,7 @@ if [ -d $SAG_HOME/profiles/SPM ] ; then
     sagcc get inventory products -e TES --wait-for-cc
 
     echo "Verifying fixes ..."
-    sagcc get inventory fixes -e wMFix.TES
+    sagcc get inventory fixes -e wMFix.TES || true
 
     echo "Verifying instances ..."
     sagcc get inventory components -e TES-default

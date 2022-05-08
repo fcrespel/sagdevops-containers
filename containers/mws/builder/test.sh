@@ -11,7 +11,7 @@ if [ -d $SAG_HOME/profiles/SPM ] ; then
     sagcc get inventory products -e MwsProgramFiles --wait-for-cc
     
     echo "Verifying fixes ..."
-    sagcc get inventory fixes -e wMFix.MwsProgramFiles
+    sagcc get inventory fixes -e wMFix.MwsProgramFiles || true
 
     echo "Verifying instances ..."
     sagcc get inventory components -e "OSGI-MWS_${__mws_instance_name}"
