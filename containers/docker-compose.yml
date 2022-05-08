@@ -9,6 +9,7 @@ services:
     hostname: cc
     environment:
       - CC_PASSWORD
+      - ADMIN_PASSWORD
       - REPO_PRODUCT_URL
       - REPO_FIX_URL
       - REPO_USERNAME
@@ -42,6 +43,7 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - ADMIN_PASSWORD
         - REPO_PRODUCT_URL
         - REPO_FIX_URL
         - REPO_USERNAME
@@ -63,6 +65,7 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - ADMIN_PASSWORD
         - REPO_PRODUCT_URL
         - REPO_FIX_URL
         - REPO_USERNAME
@@ -98,6 +101,7 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - ADMIN_PASSWORD
         - REPO_PRODUCT_URL
         - REPO_FIX_URL
         - REPO_USERNAME
@@ -159,6 +163,7 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - ADMIN_PASSWORD
         - REPO_PRODUCT_URL
         - REPO_FIX_URL
         - REPO_USERNAME
@@ -190,6 +195,7 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - ADMIN_PASSWORD
         - REPO_PRODUCT_URL
         - REPO_FIX_URL
         - REPO_USERNAME
@@ -211,6 +217,7 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - ADMIN_PASSWORD
         - REPO_PRODUCT_URL
         - REPO_FIX_URL
         - REPO_USERNAME
@@ -248,6 +255,7 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - ADMIN_PASSWORD
         - REPO_PRODUCT_URL
         - REPO_FIX_URL
         - REPO_USERNAME
@@ -283,6 +291,7 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - ADMIN_PASSWORD
         - REPO_PRODUCT_URL
         - REPO_FIX_URL
         - REPO_USERNAME
@@ -337,6 +346,7 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - ADMIN_PASSWORD
         - REPO_PRODUCT_URL
         - REPO_FIX_URL
         - REPO_USERNAME
@@ -371,6 +381,7 @@ services:
       args:
         - BUILDER_IMAGE=${REG}/cc-builder:${TAG}
         - BASE_IMAGE=${REG}/java:${TAG}
+        - ADMIN_PASSWORD
         - REPO_PRODUCT_URL
         - REPO_FIX_URL
         - REPO_USERNAME

@@ -30,6 +30,7 @@ The following arguments can be used when using this image as a base image (onbui
 
 | Argument | Description | Default value |
 | -------- | ----------- | ------------- |
+| ADMIN_PASSWORD | Administrator password | |
 | REPO_USERNAME | Empower or mirror username | |
 | REPO_PASSWORD | Empower or mirror password | |
 | REPO_PRODUCT_URL | Product repository URL | |

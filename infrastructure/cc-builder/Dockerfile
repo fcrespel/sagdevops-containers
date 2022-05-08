@@ -23,6 +23,7 @@ ENV __install_dir=$SAG_HOME
 EXPOSE 8090 8091 8092 8093 8992 8993
 
 # Automatically add arguments and files when using this image for build
+ONBUILD ARG ADMIN_PASSWORD=""
 ONBUILD ARG REPO_USERNAME=""
 ONBUILD ARG REPO_PASSWORD="" 
 ONBUILD ARG REPO_PRODUCT_URL=""

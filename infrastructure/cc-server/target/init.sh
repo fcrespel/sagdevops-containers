@@ -105,6 +105,17 @@ else
     echo "SKIP: REPO_PRODUCT_URL or REPO_FIX_URL not set. No new repositories are registered"    
 fi
 
+if [ ! -z "$ADMIN_PASSWORD" ]; then
+    sagcc exec templates composite import -i $CC_HOME/sag-cc-creds.yaml overwrite=true
+
+    echo "Registering credentials 'ADMINISTRATOR' for 'Administrator/******' ..."
+
+    sagcc exec templates composite apply sag-cc-creds --sync-job -c 5 -e DONE \
+        credentials.username=Administrator \
+        credentials.password=$ADMIN_PASSWORD \
+        credentials.key=ADMINISTRATOR
+fi
+
 LICENSES_FILE="$CC_HOME/licenses/licenses.zip"
 if [ -r $LICENSES_FILE ]; then
     echo "Importing license keys from: '$LICENSES_FILE' ..."

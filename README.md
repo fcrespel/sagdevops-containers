@@ -11,7 +11,7 @@ This repository contains templates to build containers for some **SoftwareAG web
 - Terracotta BigMemory Max
 - Universal Messaging
 
-It is inspired by the general layout and samples provided in the [SoftwareAG/sagdevops-templates](https://github.com/SoftwareAG/sagdevops-templates) repository, cleaned and simplified. Container images aim to be **production-ready** as much as possible, or to be used as stable base images to build upon. At this time, they have only been tested with the webMethods 10.5 release.
+It is inspired by the general layout and samples provided in the [SoftwareAG/sagdevops-templates](https://github.com/SoftwareAG/sagdevops-templates) repository, cleaned and simplified. Container images aim to be **production-ready** as much as possible, or to be used as stable base images to build upon. At this time, they have only been tested with the webMethods 10.5, 10.7 and 10.11 releases.
 
 These tools are provided as-is and without warranty or support. They do not constitute part of the Software AG product suite, and are not endorsed by SoftwareAG. Users are free to use, fork and modify them, subject to the license agreement.
 
@@ -27,7 +27,7 @@ You will also need Empower credentials with access to the products you want to b
 
 Go to the `infrastructure` directory and prepare your environment:
 
-- Edit the `.env` file to fill in your Empower credentials (be careful, never commit them to GitHub!). Alternatively, you may also set them in your terminal or CI tool with `export REPO_USERNAME=your-username` and `export REPO_PASSWORD=your-password`.
+- Edit the `.env` file to adjust the webMethods release version and fill in your Empower credentials (be careful, never commit them to GitHub!). Alternatively, you may also set them in your terminal or CI tool with `export REPO_USERNAME=your-username` and `export REPO_PASSWORD=your-password`.
 - In the `cc-builder/target/licenses` subdirectory, create a `product_licenses.zip` file containing your license XML files. Alternatively, you may also set a `LICENSES_URL` environment variable to have it downloaded automatically during the build.
 
 Then execute `docker-compose build` from the `infrastructure` directory to build the following images:
@@ -44,7 +44,7 @@ Once these images are built successfully, you may proceed with building individu
 
 Go to the `containers` directory and prepare your environment:
 
-- Edit the `.env` file to fill in your Empower credentials (be careful, never commit them to GitHub!). Alternatively, you may also set them in your terminal or CI tool with `export REPO_USERNAME=your-username` and `export REPO_PASSWORD=your-password`.
+- Edit the `.env` file to adjust the webMethods release version and fill in your Empower credentials (be careful, never commit them to GitHub!). Alternatively, you may also set them in your terminal or CI tool with `export REPO_USERNAME=your-username` and `export REPO_PASSWORD=your-password`.
 - If you didn't provide licenses during the infrastructure build, you may set a `LICENSES_URL` environment variable to have it downloaded automatically during the build.
 
 Then execute `docker-compose build <product>` to create an image for one of the following products:
