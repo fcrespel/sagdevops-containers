@@ -8,12 +8,14 @@ FROM $BASE_IMAGE
 
 # Install packages and updates
 RUN yum -y update &&\
-    yum -y install file gettext iproute less libxslt net-tools rsync unzip which &&\
+    yum -y install epel-release file gettext iproute less libxslt net-tools rsync unzip which &&\
+    yum -y install jq &&\
     yum -y clean all
 
-# Set install directory
+# Set install directory and locale
 ENV SAG_HOME=/opt/softwareag \
-    WM_HOME=/opt/softwareag
+    WM_HOME=/opt/softwareag \
+    LANG=en_US.utf8
 
 # Create user and group
 RUN groupadd -g 1724 sagadmin && \
