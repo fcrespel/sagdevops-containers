@@ -8,7 +8,7 @@ FROM $BASE_IMAGE
 
 # Install packages and updates
 RUN yum -y update &&\
-    yum -y install epel-release file gettext iproute less libxslt net-tools rsync unzip which &&\
+    yum -y install epel-release file gettext iproute less libxslt net-tools rsync sysvinit-tools unzip which &&\
     yum -y install jq &&\
     yum -y clean all
 
