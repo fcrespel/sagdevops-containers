@@ -8,7 +8,7 @@ ARG BASE_IMAGE
 FROM $BUILDER_IMAGE as builder
 
 # Provision, unit test, cleanup
-RUN $CC_HOME/provision.sh && $CC_HOME/test.sh && $CC_HOME/cleanup.sh
+RUN $CC_HOME/provision.sh && $CC_HOME/customize.sh && $CC_HOME/test.sh && $CC_HOME/cleanup.sh
 
 # Target image
 FROM $BASE_IMAGE
