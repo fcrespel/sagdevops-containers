@@ -26,12 +26,14 @@ ADD --chown=1724:1724 target/ $SAG_HOME/
 ENV BROKER_DATA_DIR="$SAG_HOME/Broker/data" \
     BROKER_CONFIG_SIZE="1G" \
     BROKER_CONFIG_PARAMS="" \
+    BROKER_CONFIG_LOG_SIZE="64M" \
     BROKER_DATA_SIZE="4G" \
     BROKER_DATA_PARAMS="async,max_cache_size=512" \
+    BROKER_DATA_LOG_SIZE="64M" \
+    BROKER_DEFAULT_RESERVED_SIZE="64M" \
     BROKER_SERVER_PARAMS="max-memory-size=1024 max-recv-events=400" \
     BROKER_NAME="default" \
     BROKER_CLIENTGROUP="IS-JMS" \
-    BROKER_HOSTNAME="broker" \
     BROKER_PORT="6849"
 
 # Initialize data directory

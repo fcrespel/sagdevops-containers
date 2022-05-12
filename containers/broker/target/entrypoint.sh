@@ -9,8 +9,8 @@ fi
 if [ ! -e "$BROKER_DATA_DIR/awbroker.cfg" ]; then
     mkdir -p "$BROKER_DATA_DIR"
     $SAG_HOME/Broker/bin/server_config create "$BROKER_DATA_DIR" -p 6849 -k "$SAG_HOME/Broker/license.xml" -nostart \
-        -session_config qs -qs_log_file "$BROKER_DATA_DIR/BrokerConfig.qs.log" 64M -qs_storage_file "$BROKER_DATA_DIR/BrokerConfig.qs.stor" "${BROKER_CONFIG_SIZE:-1G}" 64M \
-        -session_data qs -qs_log_file "$BROKER_DATA_DIR/BrokerData.qs.log" 64M -qs_storage_file "$BROKER_DATA_DIR/BrokerData.qs.stor" "${BROKER_DATA_SIZE:-4G}" 64M
+        -session_config qs -qs_log_file "$BROKER_DATA_DIR/BrokerConfig.qs.log" "$BROKER_CONFIG_LOG_SIZE" -qs_storage_file "$BROKER_DATA_DIR/BrokerConfig.qs.stor" "$BROKER_CONFIG_SIZE" "$BROKER_DEFAULT_RESERVED_SIZE" \
+        -session_data qs -qs_log_file "$BROKER_DATA_DIR/BrokerData.qs.log" "$BROKER_DATA_LOG_SIZE" -qs_storage_file "$BROKER_DATA_DIR/BrokerData.qs.stor" "$BROKER_DATA_SIZE" "$BROKER_DEFAULT_RESERVED_SIZE"
     if [ $? -ne 0 ]; then
         echo "Failed to create new Broker server"
         exit 1
@@ -70,15 +70,20 @@ $SAG_HOME/Broker/bin/broker_create "${BROKER_NAME:-default}" -default
 
 # Create JNDI objects
 echo "Creating JNDI objects ..."
-BROKER_HOSTNAME_INTERNAL=$(hostname -f)
-sed -e "s#{{BROKER_NAME}}#${BROKER_NAME:-default}#g" \
+BROKER_HOSTNAME=${BROKER_HOSTNAME:-$(hostname -f)}
+BROKER_HOSTNAME_INTERNAL=${BROKER_HOSTNAME_INTERNAL:-$(hostname -f)}
+BROKER_PORT=${BROKER_PORT:-6849}
+BROKER_PORT_INTERNAL=${BROKER_PORT_INTERNAL:-6849}
+sed -e "s#{{BROKER_NAME}}#${BROKER_NAME}#g" \
     -e "s#{{BROKER_HOSTNAME_INTERNAL}}#${BROKER_HOSTNAME_INTERNAL}#g" \
+    -e "s#{{BROKER_PORT_INTERNAL}}#${BROKER_PORT_INTERNAL}#g" \
     "jmsadmin.properties" > "jmsadmin.properties.tmp"
-sed -e "s#{{BROKER_NAME}}#${BROKER_NAME:-default}#g" \
+sed -e "s#{{BROKER_NAME}}#${BROKER_NAME}#g" \
     -e "s#{{BROKER_CLIENTGROUP}}#${BROKER_CLIENTGROUP}#g" \
-    -e "s#{{BROKER_HOSTNAME}}#${BROKER_HOSTNAME:-broker}#g" \
+    -e "s#{{BROKER_HOSTNAME}}#${BROKER_HOSTNAME}#g" \
     -e "s#{{BROKER_HOSTNAME_INTERNAL}}#${BROKER_HOSTNAME_INTERNAL}#g" \
-    -e "s#{{BROKER_PORT}}#${BROKER_PORT:-6849}#g" \
+    -e "s#{{BROKER_PORT}}#${BROKER_PORT}#g" \
+    -e "s#{{BROKER_PORT_INTERNAL}}#${BROKER_PORT_INTERNAL}#g" \
     "jmsadmin.script" > "jmsadmin.script.tmp"
 $SAG_HOME/Broker/bin/jmsadmin -p "jmsadmin.properties.tmp" -f "jmsadmin.script.tmp"
 rm -f "jmsadmin.properties.tmp" "jmsadmin.script.tmp"

@@ -1,5 +1,5 @@
 # Connect to Broker
-connect to broker "{{BROKER_NAME}}" server {{BROKER_HOSTNAME_INTERNAL}}:6849
+connect to broker "{{BROKER_NAME}}" server {{BROKER_HOSTNAME_INTERNAL}}:{{BROKER_PORT_INTERNAL}}
 
 # Create client group {{BROKER_CLIENTGROUP}}
 create group {{BROKER_CLIENTGROUP}}
@@ -9,10 +9,10 @@ bind cf "ConnectionFactory" with group={{BROKER_CLIENTGROUP}} useXA=false broker
 modify cf "ConnectionFactory" with group={{BROKER_CLIENTGROUP}} useXA=false brokerHost={{BROKER_HOSTNAME}}:{{BROKER_PORT}}
 bind cf "XAConnectionFactory" with group={{BROKER_CLIENTGROUP}} useXA=true brokerHost={{BROKER_HOSTNAME}}:{{BROKER_PORT}}
 modify cf "XAConnectionFactory" with group={{BROKER_CLIENTGROUP}} useXA=true brokerHost={{BROKER_HOSTNAME}}:{{BROKER_PORT}}
-bind cf "InternalConnectionFactory" with group={{BROKER_CLIENTGROUP}} useXA=false brokerHost={{BROKER_HOSTNAME_INTERNAL}}:6849
-modify cf "InternalConnectionFactory" with group={{BROKER_CLIENTGROUP}} useXA=false brokerHost={{BROKER_HOSTNAME_INTERNAL}}:6849
-bind cf "InternalXAConnectionFactory" with group={{BROKER_CLIENTGROUP}} useXA=true brokerHost={{BROKER_HOSTNAME_INTERNAL}}:6849
-modify cf "InternalXAConnectionFactory" with group={{BROKER_CLIENTGROUP}} useXA=true brokerHost={{BROKER_HOSTNAME_INTERNAL}}:6849
+bind cf "InternalConnectionFactory" with group={{BROKER_CLIENTGROUP}} useXA=false brokerHost={{BROKER_HOSTNAME_INTERNAL}}:{{BROKER_PORT_INTERNAL}}
+modify cf "InternalConnectionFactory" with group={{BROKER_CLIENTGROUP}} useXA=false brokerHost={{BROKER_HOSTNAME_INTERNAL}}:{{BROKER_PORT_INTERNAL}}
+bind cf "InternalXAConnectionFactory" with group={{BROKER_CLIENTGROUP}} useXA=true brokerHost={{BROKER_HOSTNAME_INTERNAL}}:{{BROKER_PORT_INTERNAL}}
+modify cf "InternalXAConnectionFactory" with group={{BROKER_CLIENTGROUP}} useXA=true brokerHost={{BROKER_HOSTNAME_INTERNAL}}:{{BROKER_PORT_INTERNAL}}
 
 # JNDI lookups
 permit group {{BROKER_CLIENTGROUP}} to subscribe Broker::JmsNaming::WmJmsNamingContext

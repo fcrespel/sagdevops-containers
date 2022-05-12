@@ -22,13 +22,18 @@ The following environment variables can be used with this container.
 | BROKER_DATA_DIR | Directory for data and config stores | /opt/softwareag/Broker/data |
 | BROKER_CONFIG_SIZE | Config store size | 1G |
 | BROKER_CONFIG_PARAMS | Config store params | |
+| BROKER_CONFIG_LOG_SIZE | Config store log size | 64M |
 | BROKER_DATA_SIZE | Data store size | 4G |
 | BROKER_DATA_PARAMS | Data store params | async,max_cache_size=512 |
+| BROKER_DATA_LOG_SIZE | Data store log size | 64M |
+| BROKER_DEFAULT_RESERVED_SIZE | Default reserved size for config and data store files | 64M |
 | BROKER_SERVER_PARAMS | Server awbroker.cfg config as key=value key=value ... | max-memory-size=1024 max-recv-events=400 |
 | BROKER_NAME | Broker name | default |
 | BROKER_CLIENTGROUP | Broker client group name | IS-JMS |
-| BROKER_HOSTNAME | External Broker server host name | broker |
+| BROKER_HOSTNAME | External Broker server host name | $(hostname -f) |
+| BROKER_HOSTNAME_INTERNAL | Internal Broker server host name | $(hostname -f) |
 | BROKER_PORT | External Broker server port | 6849 |
+| BROKER_PORT_INTERNAL | Internal Broker server port | 6849 |
 
 ## Volumes
 
