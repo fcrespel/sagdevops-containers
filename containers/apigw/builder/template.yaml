@@ -37,6 +37,9 @@ templates:
           package.list:    ${agw.package.list}
           configuration:
             OSGI-IS_${instance.name}:
+              COMMON-JSW:
+                COMMON-JSW: |
+                  wrapper.console.flush=TRUE
               COMMON-MEMORY:
                 COMMON-MEMORY:
                   InitSize: ${agw.memory.init}
