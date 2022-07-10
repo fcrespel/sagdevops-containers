@@ -6,7 +6,7 @@ services:
     build:
       context: base/
       args:
-        - BASE_IMAGE=centos:7
+        - BASE_IMAGE=${OS_IMAGE}
 
   cc-server:
     image: ${REG}/cc-server:${TAG}
