@@ -6,6 +6,7 @@ services:
     image: ${REG}/cc-server:${TAG}
     ports:
       - "8091:8091"
+      - "8993:8993"
     hostname: cc
     environment:
       - CC_PASSWORD
@@ -80,6 +81,7 @@ services:
         - "org.opencontainers.image.version=${TAG}"
     ports:
       - "7555:5555"
+      - "7543:5543"
       - "9072:9072"
     hostname: apigw
     environment:
@@ -89,9 +91,6 @@ services:
       - apigw_elasticsearch_hosts=apigw-es:9240
       - apigw_kibana_dashboardInstance=http://apigw-kibana:9405
     stop_grace_period: 30s
-    depends_on:
-      - apigw-es
-      - apigw-kibana
 
   # API Gateway Data Store (Elasticsearch)
   apigw-es:
@@ -152,8 +151,6 @@ services:
     hostname: apigw-kibana
     environment:
       - elasticsearch.hosts=http://apigw-es:9240
-    depends_on:
-      - apigw-es
 
   # Broker Server
   broker:
@@ -335,8 +332,6 @@ services:
     environment:
       - TSA_URL=http://tsa:9540
     stop_grace_period: 30s
-    depends_on:
-      - tsa
 
   # Terracotta Server
   tsa:
