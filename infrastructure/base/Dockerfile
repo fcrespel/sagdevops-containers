@@ -25,7 +25,9 @@ ENV SAG_HOME=/opt/softwareag \
 
 # Create user and group
 RUN groupadd -g 1724 sagadmin && \
-    useradd -u 1724 -m -g 1724 -d $SAG_HOME -c "SoftwareAG Admin" sagadmin
+    useradd -u 1724 -m -g 1724 -d $SAG_HOME -c "SoftwareAG Admin" sagadmin && \
+    cp --remove-destination /usr/share/zoneinfo/UTC /etc/localtime && \
+    chmod 777 /etc/localtime
 
 # Switch to user
 USER 1724
