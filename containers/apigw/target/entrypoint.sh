@@ -19,6 +19,18 @@ if [ -n "$LICENSE_BASE64" ]; then
     echo "$LICENSE_BASE64" | base64 -d > "$IS_INSTANCE/config/licenseKey.xml"
 fi
 
+# Update timezone
+if [ -n "$TIMEZONE" ]; then
+    echo "Configuring timezone ($TIMEZONE) ..."
+    if [ -e "/usr/share/zoneinfo/$TIMEZONE" ]; then
+        cp "/usr/share/zoneinfo/$TIMEZONE" "/etc/localtime"
+        echo "Timezone updated: $(date)"
+    else
+        echo "Unable to find timezone $TIMEZONE at /usr/share/zoneinfo/$TIMEZONE"
+        exit 1
+    fi
+fi
+
 # Process environment variables
 java -cp $IS_INSTANCE/packages/WmAPIGateway/bin/lib/apigateway-tools.jar com.softwareag.apigateway.tools.docker.ModifyExternalProperties apigateway
 

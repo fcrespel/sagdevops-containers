@@ -27,6 +27,7 @@ The following environment variables can be used with this container.
 | LICENSE_BASE64 | License XML file base64-encoded | |
 | SYNC_CONFIG | Sync config from image to instance at startup | true |
 | SYNC_PACKAGES | Sync packages from image to instance at startup | true |
+| TIMEZONE | Timezone name (e.g. Europe/Paris) | UTC |
 | WS_HTTP_LB_HOST | Web service provider endpoint hostname | $(hostname -f) |
 | WS_HTTP_LB_PORT | Web service provider endpoint port | 5556 |
 | WS_HTTPS_LB_HOST | Web service provider endpoint hostname | $(hostname -f) |

@@ -22,6 +22,7 @@ The following environment variables can be used with this container.
 | JAVA_MAX_MEM | Maximum Java heap size | 512m |
 | LICENSE_BASE64 | License XML file base64-encoded | |
 | SAG_IS_CONFIG_PROPERTIES | Configuration Variables Template file location | /opt/softwareag/IntegrationServer/application.properties |
+| TIMEZONE | Timezone name (e.g. Europe/Paris) | UTC |
 
 ## Volumes
 

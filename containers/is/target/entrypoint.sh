@@ -34,6 +34,18 @@ if [ -n "$LICENSE_BASE64" ]; then
     echo "$LICENSE_BASE64" | base64 -d > "$IS_INSTANCE/config/licenseKey.xml"
 fi
 
+# Update timezone
+if [ -n "$TIMEZONE" ]; then
+    echo "Configuring timezone ($TIMEZONE) ..."
+    if [ -e "/usr/share/zoneinfo/$TIMEZONE" ]; then
+        cp "/usr/share/zoneinfo/$TIMEZONE" "/etc/localtime"
+        echo "Timezone updated: $(date)"
+    else
+        echo "Unable to find timezone $TIMEZONE at /usr/share/zoneinfo/$TIMEZONE"
+        exit 1
+    fi
+fi
+
 # Update loadbalancer host/port
 echo "Updating web service provider endpoints ..."
 xsltproc --stringparam host "${WS_HTTP_LB_HOST:-$(hostname -f)}" --stringparam port "${WS_HTTP_LB_PORT:-5555}" update-endpoint.xsl "$IS_INSTANCE/config/endpoints/providerHTTP.cnf" > "$IS_INSTANCE/config/endpoints/providerHTTP.cnf.tmp" && mv -f "$IS_INSTANCE/config/endpoints/providerHTTP.cnf.tmp" "$IS_INSTANCE/config/endpoints/providerHTTP.cnf"

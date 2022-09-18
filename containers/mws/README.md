@@ -26,6 +26,7 @@ The following environment variables can be used with this container.
 | MWS_DB_PASSWORD | Database user password | |
 | MWS_DB_NAME | Database name | |
 | MWS_USER_PWD_xxx | Password for user xxx (Administrator, SysAdmin, Designer) | |
+| TIMEZONE | Timezone name (e.g. Europe/Paris) | UTC |
 
 ## Volumes
 
@@ -50,7 +51,6 @@ The following arguments can be used when building the container image.
 | REPO_PRODUCT_NAME | Product repository name | products |
 | REPO_FIX_URL | Fix repository URL | https://sdc.softwareag.com/updates/prodRepo |
 | REPO_FIX_NAME | Fix repository name | fixes |
-| LICENSES_URL | Licenses ZIP file URL | |
 
 ## Useful links
 

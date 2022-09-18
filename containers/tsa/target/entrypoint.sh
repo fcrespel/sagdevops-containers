@@ -15,6 +15,18 @@ if [ -n "$LICENSE_BASE64" ]; then
     echo "$LICENSE_BASE64" | base64 -d > "$SAG_HOME/Terracotta/terracotta-license.key"
 fi
 
+# Update timezone
+if [ -n "$TIMEZONE" ]; then
+    echo "Configuring timezone ($TIMEZONE) ..."
+    if [ -e "/usr/share/zoneinfo/$TIMEZONE" ]; then
+        cp "/usr/share/zoneinfo/$TIMEZONE" "/etc/localtime"
+        echo "Timezone updated: $(date)"
+    else
+        echo "Unable to find timezone $TIMEZONE at /usr/share/zoneinfo/$TIMEZONE"
+        exit 1
+    fi
+fi
+
 # Update current node name
 if [ -n "$TC_NODE_NAME" ]; then
     echo "Setting current node name: $TC_NODE_NAME"

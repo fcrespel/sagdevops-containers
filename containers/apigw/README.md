@@ -23,6 +23,7 @@ The following environment variables can be used with this container.
 | JAVA_MIN_MEM | Minimum Java heap size in MB | 512 |
 | JAVA_MAX_MEM | Maximum Java heap size in MB | 512 |
 | LICENSE_BASE64 | License XML file base64-encoded | |
+| TIMEZONE | Timezone name (e.g. Europe/Paris) | UTC |
 | apigw_cluster_name | Cluster name | APIGatewayTSAcluster |
 | apigw_cluster_aware | Enable clustering using Terracotta Server Array | true |
 | apigw_cluster_tsaUrls | Terracotta Server Array URLs (comma-separated) | |

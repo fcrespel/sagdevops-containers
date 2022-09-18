@@ -20,6 +20,7 @@ The following environment variables can be used with this container.
 | JAVA_MIN_MEM | Minimum Java heap size in MB | 1024 |
 | JAVA_MAX_MEM | Maximum Java heap size in MB | 1024 |
 | LICENSE_BASE64 | License XML file base64-encoded | |
+| TIMEZONE | Timezone name (e.g. Europe/Paris) | UTC |
 
 ## Volumes
 

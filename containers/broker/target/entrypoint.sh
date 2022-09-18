@@ -11,6 +11,18 @@ if [ -n "$LICENSE_BASE64" ]; then
     echo "$LICENSE_BASE64" | base64 -d > "$SAG_HOME/Broker/license.xml"
 fi
 
+# Update timezone
+if [ -n "$TIMEZONE" ]; then
+    echo "Configuring timezone ($TIMEZONE) ..."
+    if [ -e "/usr/share/zoneinfo/$TIMEZONE" ]; then
+        cp "/usr/share/zoneinfo/$TIMEZONE" "/etc/localtime"
+        echo "Timezone updated: $(date)"
+    else
+        echo "Unable to find timezone $TIMEZONE at /usr/share/zoneinfo/$TIMEZONE"
+        exit 1
+    fi
+fi
+
 # Create Broker server
 if [ ! -e "$BROKER_DATA_DIR/awbroker.cfg" ]; then
     mkdir -p "$BROKER_DATA_DIR"

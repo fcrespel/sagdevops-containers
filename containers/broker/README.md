@@ -35,6 +35,7 @@ The following environment variables can be used with this container.
 | BROKER_PORT | External Broker server port | 6849 |
 | BROKER_PORT_INTERNAL | Internal Broker server port | 6849 |
 | LICENSE_BASE64 | License XML file base64-encoded | |
+| TIMEZONE | Timezone name (e.g. Europe/Paris) | UTC |
 
 ## Volumes
 

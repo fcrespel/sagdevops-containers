@@ -16,6 +16,18 @@ while IFS='=' read -r envvar_key envvar_value; do
   fi
 done < <(env)
 
+# Update timezone
+if [ -n "$TIMEZONE" ]; then
+    echo "Configuring timezone ($TIMEZONE) ..."
+    if [ -e "/usr/share/zoneinfo/$TIMEZONE" ]; then
+        cp "/usr/share/zoneinfo/$TIMEZONE" "/etc/localtime"
+        echo "Timezone updated: $(date)"
+    else
+        echo "Unable to find timezone $TIMEZONE at /usr/share/zoneinfo/$TIMEZONE"
+        exit 1
+    fi
+fi
+
 # Start server
 PIDFILE=$SAG_HOME/InternalDataStore/bin/elasticsearch.pid
 exec $SAG_HOME/InternalDataStore/bin/elasticsearch --pidfile $PIDFILE "${es_opts[@]}" "$@"

@@ -24,6 +24,7 @@ The following environment variables can be used with this container.
 | LICENSE_BASE64 | License file base64-encoded | |
 | TC_NODE_NAME | Terracotta node name (when using multiple nodes) | |
 | TC_NODES | Terracotta nodes list (comma-separated hostnames) | |
+| TIMEZONE | Timezone name (e.g. Europe/Paris) | UTC |
 
 ## Volumes
 
