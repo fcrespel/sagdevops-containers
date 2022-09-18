@@ -15,6 +15,7 @@ services:
       - REPO_FIX_URL
       - REPO_USERNAME
       - REPO_PASSWORD
+      - LICENSES_BASE64
       - LICENSES_URL
     volumes:
       - 'cce-conf:/opt/sagtools/profiles/CCE/configuration'
@@ -49,7 +50,6 @@ services:
         - REPO_FIX_URL
         - REPO_USERNAME
         - REPO_PASSWORD
-        - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
         - "org.opencontainers.image.revision=${IMAGE_REV:-}"
@@ -71,6 +71,7 @@ services:
         - REPO_FIX_URL
         - REPO_USERNAME
         - REPO_PASSWORD
+        - LICENSES_BASE64
         - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
@@ -105,7 +106,6 @@ services:
         - REPO_FIX_URL
         - REPO_USERNAME
         - REPO_PASSWORD
-        - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
         - "org.opencontainers.image.revision=${IMAGE_REV:-}"
@@ -165,6 +165,7 @@ services:
         - REPO_FIX_URL
         - REPO_USERNAME
         - REPO_PASSWORD
+        - LICENSES_BASE64
         - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
@@ -197,7 +198,6 @@ services:
         - REPO_FIX_URL
         - REPO_USERNAME
         - REPO_PASSWORD
-        - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
         - "org.opencontainers.image.revision=${IMAGE_REV:-}"
@@ -219,6 +219,7 @@ services:
         - REPO_FIX_URL
         - REPO_USERNAME
         - REPO_PASSWORD
+        - LICENSES_BASE64
         - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
@@ -257,6 +258,7 @@ services:
         - REPO_FIX_URL
         - REPO_USERNAME
         - REPO_PASSWORD
+        - LICENSES_BASE64
         - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
@@ -293,7 +295,6 @@ services:
         - REPO_FIX_URL
         - REPO_USERNAME
         - REPO_PASSWORD
-        - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
         - "org.opencontainers.image.revision=${IMAGE_REV:-}"
@@ -346,6 +347,7 @@ services:
         - REPO_FIX_URL
         - REPO_USERNAME
         - REPO_PASSWORD
+        - LICENSES_BASE64
         - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"
@@ -381,6 +383,7 @@ services:
         - REPO_FIX_URL
         - REPO_USERNAME
         - REPO_PASSWORD
+        - LICENSES_BASE64
         - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"

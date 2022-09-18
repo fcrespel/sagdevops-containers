@@ -5,6 +5,12 @@ if [ "$CC_AUTO_REGISTER" = "1" ]; then
     $SAG_HOME/register.sh
 fi
 
+# Update license
+if [ -n "$LICENSE_BASE64" ]; then
+    echo "Updating license ..."
+    echo "$LICENSE_BASE64" | base64 -d > "$SAG_HOME/Broker/license.xml"
+fi
+
 # Create Broker server
 if [ ! -e "$BROKER_DATA_DIR/awbroker.cfg" ]; then
     mkdir -p "$BROKER_DATA_DIR"

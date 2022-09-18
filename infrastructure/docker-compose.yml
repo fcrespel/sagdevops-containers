@@ -61,6 +61,7 @@ services:
         - REPO_FIX_URL
         - REPO_USERNAME
         - REPO_PASSWORD
+        - LICENSES_BASE64
         - LICENSES_URL
       labels:
         - "org.opencontainers.image.licenses=SoftwareAG"

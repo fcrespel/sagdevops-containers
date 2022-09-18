@@ -9,6 +9,12 @@ fi
 [ -n "$JAVA_MIN_MEM" ] && sed -i "s#^wrapper.java.initmemory=.*\$#wrapper.java.initmemory=$JAVA_MIN_MEM#g" $SAG_HOME/Terracotta/server/wrapper/conf/custom_wrapper.conf
 [ -n "$JAVA_MAX_MEM" ] && sed -i "s#^wrapper.java.maxmemory=.*\$#wrapper.java.maxmemory=$JAVA_MAX_MEM#g" $SAG_HOME/Terracotta/server/wrapper/conf/custom_wrapper.conf
 
+# Update license
+if [ -n "$LICENSE_BASE64" ]; then
+    echo "Updating license ..."
+    echo "$LICENSE_BASE64" | base64 -d > "$SAG_HOME/Terracotta/terracotta-license.key"
+fi
+
 # Update current node name
 if [ -n "$TC_NODE_NAME" ]; then
     echo "Setting current node name: $TC_NODE_NAME"

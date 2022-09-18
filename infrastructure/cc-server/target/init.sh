@@ -121,18 +121,25 @@ if [ -r $LICENSES_FILE ]; then
     echo "Importing license keys from: '$LICENSES_FILE' ..."
     sagcc add license-tools keys -i $LICENSES_FILE
 else
-    echo "SKIP: LICENSE_FILE not found. No new license keys are imported"    
+    echo "SKIP: $LICENSES_FILE not found. No new license keys are imported"    
 fi
 
-PRODUCT_LICENSES_FILE=$CC_HOME/licenses/product_licenses.zip
+PRODUCT_LICENSES_FILE="$CC_HOME/licenses/product_licenses.zip"
 if [ -f $PRODUCT_LICENSES_FILE ]; then
     echo "Importing products license keys from: '$PRODUCT_LICENSES_FILE' ..."
     sagcc add license-tools keys -i $PRODUCT_LICENSES_FILE
-#    rm $PRODUCT_LICENSES_FILE
 else
-    echo "SKIP: $LICENSE_FILE is file found. No new license keys are imported"
+    echo "SKIP: $PRODUCT_LICENSES_FILE not found. No new license keys are imported"
 fi
 
+if [ ! -z "$LICENSES_BASE64" ]; then
+    echo "Importing license keys from base64-encoded archive ..."
+    echo "$LICENSES_BASE64" | base64 -d > ~/licenses.zip && \
+    sagcc add license-tools keys -i ~/licenses.zip && \
+    rm ~/licenses.zip
+else
+    echo "SKIP: LICENSES_BASE64 env variable not set. No new license keys are imported"    
+fi
 
 if [ ! -z $LICENSES_URL ]; then
     echo "Importing license keys from: '$LICENSES_URL' ..."

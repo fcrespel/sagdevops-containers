@@ -21,6 +21,7 @@ The following environment variables can be used with this container.
 | -------- | ----------- | ------------- |
 | JAVA_MIN_MEM | Minimum Java heap size in MB | 128 |
 | JAVA_MAX_MEM | Maximum Java heap size in MB | 512 |
+| LICENSE_BASE64 | License file base64-encoded | |
 | TC_NODE_NAME | Terracotta node name (when using multiple nodes) | |
 | TC_NODES | Terracotta nodes list (comma-separated hostnames) | |
 
@@ -48,6 +49,7 @@ The following arguments can be used when building the container image.
 | REPO_PRODUCT_NAME | Product repository name | products |
 | REPO_FIX_URL | Fix repository URL | https://sdc.softwareag.com/updates/prodRepo |
 | REPO_FIX_NAME | Fix repository name | fixes |
+| LICENSES_BASE64 | Licenses ZIP file base64-encoded | |
 | LICENSES_URL | Licenses ZIP file URL | |
 
 ## Useful links

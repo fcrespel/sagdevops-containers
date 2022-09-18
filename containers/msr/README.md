@@ -20,6 +20,7 @@ The following environment variables can be used with this container.
 | -------- | ----------- | ------------- |
 | JAVA_MIN_MEM | Minimum Java heap size | 512m |
 | JAVA_MAX_MEM | Maximum Java heap size | 512m |
+| LICENSE_BASE64 | License XML file base64-encoded | |
 | SAG_IS_CONFIG_PROPERTIES | Configuration Variables Template file location | /opt/softwareag/IntegrationServer/application.properties |
 
 ## Volumes
@@ -50,6 +51,7 @@ The following arguments can be used when building the container image.
 | REPO_PRODUCT_NAME | Product repository name | products |
 | REPO_FIX_URL | Fix repository URL | https://sdc.softwareag.com/updates/prodRepo |
 | REPO_FIX_NAME | Fix repository name | fixes |
+| LICENSES_BASE64 | Licenses ZIP file base64-encoded | |
 | LICENSES_URL | Licenses ZIP file URL | |
 
 ## Useful links

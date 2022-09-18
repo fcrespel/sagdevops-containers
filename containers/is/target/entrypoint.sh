@@ -28,6 +28,12 @@ if [ "$SYNC_CONFIG" != "false" -a "$SYNC_CONFIG" != "0" ]; then
     rsync -a --delete "$IS_HOME/config" "$IS_INSTANCE/"
 fi
 
+# Update license
+if [ -n "$LICENSE_BASE64" ]; then
+    echo "Updating license ..."
+    echo "$LICENSE_BASE64" | base64 -d > "$IS_INSTANCE/config/licenseKey.xml"
+fi
+
 # Update loadbalancer host/port
 echo "Updating web service provider endpoints ..."
 xsltproc --stringparam host "${WS_HTTP_LB_HOST:-$(hostname -f)}" --stringparam port "${WS_HTTP_LB_PORT:-5555}" update-endpoint.xsl "$IS_INSTANCE/config/endpoints/providerHTTP.cnf" > "$IS_INSTANCE/config/endpoints/providerHTTP.cnf.tmp" && mv -f "$IS_INSTANCE/config/endpoints/providerHTTP.cnf.tmp" "$IS_INSTANCE/config/endpoints/providerHTTP.cnf"
