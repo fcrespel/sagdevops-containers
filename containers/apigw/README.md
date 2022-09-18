@@ -6,6 +6,7 @@ The following ports are exposed by this container image.
 
 | Port | Description |
 | ---- | ----------- |
+| 5543 | Primary HTTPS port |
 | 5555 | Primary HTTP port |
 | 9999 | Diagnostic HTTP port |
 | 8075 | JMX port |
