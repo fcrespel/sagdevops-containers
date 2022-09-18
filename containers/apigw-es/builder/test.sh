@@ -1,5 +1,8 @@
 #!/bin/sh -e
 
+# workaround for missing path in scripts
+sed -i "s#sh el_initd#sh $SAG_HOME/InternalDataStore/bin/el_initd#g" "$SAG_HOME/InternalDataStore/bin/startup.sh" "$SAG_HOME/InternalDataStore/bin/restart.sh" "$SAG_HOME/InternalDataStore/bin/shutdown.sh"
+
 # if managed image
 if [ -d $SAG_HOME/profiles/SPM ] ; then
     # point to local SPM
@@ -15,7 +18,8 @@ if [ -d $SAG_HOME/profiles/SPM ] ; then
     sagcc get inventory components -e CEL
 
     echo "Start the instance ..."
-    sagcc exec lifecycle components CEL start -e DONE --sync-job
+    # sagcc exec lifecycle components CEL start -e DONE --sync-job
+    $SAG_HOME/InternalDataStore/bin/startup.sh
 
     echo "Verifying status ..."
     sagcc get monitoring runtimestatus CEL -e ONLINE
@@ -26,7 +30,8 @@ curl -sf -u Administrator:manage http://`hostname`:9240/
 
 if [ -d $SAG_HOME/profiles/SPM ] ; then
     echo "Shut down the instance ..."
-    sagcc exec lifecycle components CEL stop -e DONE --sync-job
+    # sagcc exec lifecycle components CEL stop -e DONE --sync-job
+    $SAG_HOME/InternalDataStore/bin/shutdown.sh
 fi
 
 echo "DONE testing"

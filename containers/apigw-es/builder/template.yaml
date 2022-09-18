@@ -1,5 +1,10 @@
 alias: sag-internaldatastore
 description: Internal Data Store provisioning and cluster configuration
+dslVersion: "1.2"
+
+options:  
+  forceRestartWhenDone: false  
+  startupLayers: false
 
 environments:
   default:
