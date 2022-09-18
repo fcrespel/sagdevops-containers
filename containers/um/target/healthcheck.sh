@@ -1,3 +1,3 @@
 #!/bin/sh
 
-curl -sSf -o /dev/null "http://localhost:9000"
+echo | curl -sSf -o /dev/null "telnet://localhost:9000"
