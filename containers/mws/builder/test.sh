@@ -17,7 +17,7 @@ if [ -d $SAG_HOME/profiles/SPM ] ; then
     sagcc get inventory components -e "OSGI-MWS_${__mws_instance_name}"
 
     echo "Start the instance ..."
-    sagcc exec lifecycle components "OSGI-MWS_${__mws_instance_name}" restart -e DONE --sync-job
+    sagcc exec lifecycle components "OSGI-MWS_${__mws_instance_name}" start -e DONE --sync-job
 
     echo "Verifying status ..."
     sagcc get monitoring runtimestatus "OSGI-MWS_${__mws_instance_name}" -e ONLINE

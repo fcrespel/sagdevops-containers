@@ -9,7 +9,7 @@ fi
 if [ "$MWS_DB_TYPE" != "internal" ]; then
     $SAG_HOME/common/db/bin/dbConfigurator.sh -a create -d "${MWS_DB_TYPE//mysql*/mysql}" -pr MywebMethodsServer -l "$MWS_DB_URL" -u "$MWS_DB_USERNAME" -p "$MWS_DB_PASSWORD" -n "$MWS_DB_NAME"
     $SAG_HOME/common/db/bin/dbConfigurator.sh -a migrate -d "${MWS_DB_TYPE//mysql*/mysql}" -pr MywebMethodsServer -l "$MWS_DB_URL" -u "$MWS_DB_USERNAME" -p "$MWS_DB_PASSWORD" -n "$MWS_DB_NAME"
-    $SAG_HOME/MWS/bin/mws.sh ant -f $SAG_HOME/MWS/server/deploy.xml -e update-mws-db-xml -Ddb.type="$MWS_DB_TYPE" -Ddb.url="$MWS_DB_URL" -Ddb.username="$MWS_DB_USERNAME" -Ddb.password="$MWS_DB_PASSWORD"
+    $SAG_HOME/MWS/bin/mws.sh ant -f $SAG_HOME/MWS/server/deploy.xml -e check-db-params update-mws-db-xml -Ddb.type="$MWS_DB_TYPE" -Ddb.url="$MWS_DB_URL" -Ddb.username="$MWS_DB_USERNAME" -Ddb.password="$MWS_DB_PASSWORD"
 fi
 
 # Update config
