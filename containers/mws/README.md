@@ -54,4 +54,4 @@ The following arguments can be used when building the container image.
 
 ## Useful links
 
-- [My webMethods Server 10.5 documentation](https://documentation.softwareag.com/webmethods/mywebmethods_server/mws10-5/10-5_MWSw/index.html)
+- [My webMethods Server 10.11 documentation](https://documentation.softwareag.com/webmethods/mywebmethods_server/mws10-11/10-11_MWSw/index.html)

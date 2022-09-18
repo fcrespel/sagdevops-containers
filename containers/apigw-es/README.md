@@ -51,5 +51,5 @@ The following arguments can be used when building the container image.
 
 ## Useful links
 
-- [Data Store 10.5 documentation](https://documentation.softwareag.com/webmethods/api_gateway/yai10-5/10-5_API_Gateway_webhelp/api-gateway-integrated-webhelp/_api_gtw_integrated_webhelp_diba2.1.010.html)
-- [Elasticsearch 7.2 documentation](https://www.elastic.co/guide/en/elasticsearch/reference/7.2/settings.html)
+- [Data Store 10.11 documentation](https://documentation.softwareag.com/webmethods/api_gateway/yai10-11/10-11_API_Gateway_webhelp/index.html#page/api-gateway-integrated-webhelp%2Fco-administering_datastore.html%23)
+- [Elasticsearch 7.x documentation](https://www.elastic.co/guide/en/elasticsearch/reference/7.x/settings.html)

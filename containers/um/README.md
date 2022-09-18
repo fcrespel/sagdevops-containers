@@ -49,4 +49,4 @@ The following arguments can be used when building the container image.
 
 ## Useful links
 
-- [Universal Messaging 10.5 documentation](https://documentation.softwareag.com/onlinehelp/Rohan/num10-5/10-5_UM_webhelp/index.html)
+- [Universal Messaging 10.11 documentation](https://documentation.softwareag.com/onlinehelp/Rohan/num10-11/10-11_UM_webhelp/index.html)

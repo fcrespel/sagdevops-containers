@@ -57,4 +57,4 @@ The following arguments can be used when building the container image.
 
 ## Useful links
 
-- [Microservices Runtime 10.5 documentation](https://documentation.softwareag.com/webmethods/microservices_container/msc10-5/10-5_MSC_PIE_webhelp/index.html)
+- [Microservices Runtime 10.11 documentation](https://documentation.softwareag.com/webmethods/microservices_container/msc10-11/10-11_MSC_PIE_webhelp/index.html)

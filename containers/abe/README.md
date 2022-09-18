@@ -25,4 +25,4 @@ The following arguments can be used when building the container image.
 
 ## Useful links
 
-- [Deployer 10.5 documentation](https://documentation.softwareag.com/webmethods/deployer/wdy10-5/10-5_Deployer_webhelp/index.html)
+- [Deployer 10.11 documentation](https://documentation.softwareag.com/webmethods/deployer/wdy10-11/10-11_Deployer_webhelp/index.html)

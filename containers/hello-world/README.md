@@ -29,4 +29,4 @@ The following arguments can be used when building the container image.
 
 ## Useful links
 
-- [Command Central 10.5 documentation](https://documentation.softwareag.com/webmethods/command_central/cce10-5/10-5_Command_Central_webhelp/index.html)
+- [Command Central 10.11 documentation](https://documentation.softwareag.com/webmethods/command_central/cce10-11/10-11_Command_Central_webhelp/index.html)

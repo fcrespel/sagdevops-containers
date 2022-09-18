@@ -17,4 +17,4 @@ The following arguments can be used when building the container image.
 
 ## Useful links
 
-- [Database Component Configurator 10.5 documentation](https://documentation.softwareag.com/webmethods/wmsuites/wmsuite10-5/SysReqs_Installation_and_Upgrade/compendium/install-upgrade-webhelp/to-install_products_36.html)
+- [Database Component Configurator 10.11 documentation](https://documentation.softwareag.com/webmethods/wmsuites/wmsuite10-11/SysReqs_Installation_and_Upgrade/compendium/install-upgrade-webhelp/to-install_products_36.html)
