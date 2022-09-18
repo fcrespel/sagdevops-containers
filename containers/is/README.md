@@ -6,6 +6,7 @@ The following ports are exposed by this container image.
 
 | Port | Description |
 | ---- | ----------- |
+| 5543 | Primary HTTPS port |
 | 5554 | Admin HTTP port (for scripts/tools) |
 | 5555 | Primary HTTP port |
 | 5556 | Web Services HTTP port |
