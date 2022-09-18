@@ -14,6 +14,7 @@ The following environment variables can be used with this container.
 
 | Variable | Description | Default value |
 | -------- | ----------- | ------------- |
+| TIMEZONE | Timezone name (e.g. Europe/Paris) | UTC |
 | elasticsearch.hosts | Elasticsearch hosts | http://localhost:9240 |
 | elasticsearch.username | Elasticsearch username | |
 | elasticsearch.password | Elasticsearch password | |
@@ -31,4 +32,4 @@ The following arguments can be used when building the container image.
 
 ## Useful links
 
-- [Kibana 7.2 documentation](https://www.elastic.co/guide/en/kibana/7.2/settings.html)
+- [Kibana 7.x documentation](https://www.elastic.co/guide/en/kibana/7.x/settings.html)

@@ -90,7 +90,7 @@ services:
       - JAVA_MIN_MEM=512
       - JAVA_MAX_MEM=512
       - apigw_elasticsearch_hosts=apigw-es:9240
-      - apigw_kibana_dashboardInstance=http://apigw-kibana:9405
+      - apigw_kibana_dashboardInstance=http://apigw-kb:9405
     stop_grace_period: 30s
 
   # API Gateway Data Store (Elasticsearch)
@@ -132,10 +132,10 @@ services:
     stop_grace_period: 30s
 
   # API Gateway Kibana
-  apigw-kibana:
-    image: ${REG}/apigw-kibana:${TAG}
+  apigw-kb:
+    image: ${REG}/apigw-kb:${TAG}
     build:
-      context: apigw-kibana/
+      context: apigw-kb/
       args:
         - BUILDER_IMAGE=${REG}/apigw:${TAG}
         - BASE_IMAGE=${REG}/base:${TAG}
@@ -148,7 +148,7 @@ services:
         - "org.opencontainers.image.version=${TAG}"
     ports:
       - "9405:9405"
-    hostname: apigw-kibana
+    hostname: apigw-kb
     environment:
       - elasticsearch.hosts=http://apigw-es:9240
 
