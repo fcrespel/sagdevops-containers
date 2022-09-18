@@ -12,7 +12,7 @@ environments:
     is.jmx.port:                      8075
     is.memory.init:                   1024
     is.memory.max:                    1024
-    is.package.list:                  WmBrokerDeployer,WmCloudStreams,WmDeployer,WmJDBCAdapter,WmKafkaAdapter,WmNUMDeployer
+    is.package.list:                  WmBrokerDeployer,WmCDS,WmCloudStreams,WmDeployer,WmJDBCAdapter,WmKafkaAdapter,WmMonitor,WmNUMDeployer
     is.fixes:                         ALL
     is.logger.server.level:           Info
     is.proxyuser.username:            proxyuser
@@ -156,8 +156,11 @@ templates:
                     watt.net.proxySkipList=localhost,127.0.0.1,10.*,192.168.*
                     watt.net.timeout=60
                     watt.server.audit.logFilesToKeep=7
+                    watt.server.audit.logRotateSize=20MB
                     watt.server.checkWhitelist=false
                     watt.server.clientTimeout=5
+                    watt.server.dateStampFmt=yyyy-MM-dd HH:mm:ss.SSSXXX
+                    watt.server.db.share.ISInternal=true
                     watt.server.http.preserveUriReservedChars=false
                     watt.server.http.returnException=webMethods
                     watt.server.jms.trigger.stopRequestTimeout=70
@@ -172,10 +175,12 @@ templates:
                     watt.server.SOAP.default.endpointHTTPS=HTTPS
                     watt.server.stats.logFilesToKeep=7
                     watt.server.threadPool=500
-      Deployer:     # WmDeployer
-      jdbcAdapter:  # WmJDBCAdapter
-      kafka:        # WmKafkaAdapter
-      wst:          # WmCloudStreams
+      Deployer:                 # WmDeployer
+      jdbcAdapter:              # WmJDBCAdapter
+      kafka:                    # WmKafkaAdapter
+      Monitor:                  # WmMonitor
+      MWSCentralUserManagement: # WmCDS
+      wst:                      # WmCloudStreams
 
 provision:
   default:
