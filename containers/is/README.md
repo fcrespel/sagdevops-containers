@@ -23,10 +23,15 @@ The following environment variables can be used with this container.
 | -------- | ----------- | ------------- |
 | JAVA_MIN_MEM | Minimum Java heap size in MB | 512 |
 | JAVA_MAX_MEM | Maximum Java heap size in MB | 512 |
+| IS_DBFUNCTION_POOL_xxx | DB Function POOL for alias xxx | |
+| IS_JDBCPOOL_URL_xxx | JDBC Pool URL for alias xxx | |
+| IS_JDBCPOOL_USER_xxx | JDBC Pool USER for alias xxx | |
+| IS_JDBCPOOL_PWD_xxx | JDBC Pool PASSWORD for alias xxx | |
 | IS_JNDI_URL_xxx | JNDI URL for alias xxx | |
 | IS_USER_PWD_xxx | Password for user xxx (Administrator, proxyuser, etc.) | |
 | LICENSE_BASE64 | License XML file base64-encoded | |
 | SYNC_CONFIG | Sync config from image to instance at startup | true |
+| SYNC_CONFIG_EXCLUDE | Files to exclude from config sync (comma-separated) | |
 | SYNC_PACKAGES | Sync packages from image to instance at startup | true |
 | TIMEZONE | Timezone name (e.g. Europe/Paris) | UTC |
 | WS_HTTP_LB_HOST | Web service provider endpoint hostname | $(hostname -f) |

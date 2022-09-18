@@ -24,8 +24,14 @@ fi
 
 # Copy config
 if [ "$SYNC_CONFIG" != "false" -a "$SYNC_CONFIG" != "0" ]; then
+    RSYNC_EXCLUDES=""
+    if [ -n "$SYNC_CONFIG_EXCLUDE" ]; then
+        for RSYNC_EXCLUDE in ${SYNC_CONFIG_EXCLUDE//,/ }; do
+            RSYNC_EXCLUDES="$RSYNC_EXCLUDES --exclude $RSYNC_EXCLUDE"
+        done
+    fi
     echo "Syncing config ..."
-    rsync -a --delete "$IS_HOME/config" "$IS_INSTANCE/"
+    eval rsync -a $RSYNC_EXCLUDES --delete "$IS_HOME/config/" "$IS_INSTANCE/config/"
 fi
 
 # Update license
@@ -69,6 +75,41 @@ while IFS='=' read -r k v; do
             if [ -e "$IS_INSTANCE/config/jndi/jndi_${JNDI_NAME}.properties" ]; then
                 echo "- Updating JNDI alias $JNDI_NAME"
                 sed -i "s#^java.naming.provider.url=.*\$#java.naming.provider.url=${v//:/\\:}#g" "$IS_INSTANCE/config/jndi/jndi_${JNDI_NAME}.properties"
+            fi
+        elif [[ "$k" =~ ^IS_DBFUNCTION_POOL_.* ]]; then
+            # DBFunction
+            DBFUNCTION="${k//IS_DBFUNCTION_POOL_/}"
+            echo "- Updating pool of function: $DBFUNCTION"
+            if [ -e "$IS_INSTANCE/config/jdbc/function/${DBFUNCTION}.xml" ]; then
+                xsltproc --stringparam poolAlias "$v" update-dbfunction-pool.xsl "$IS_INSTANCE/config/jdbc/function/${DBFUNCTION}.xml" > "$IS_INSTANCE/config/jdbc/function/${DBFUNCTION}.xml.tmp"
+                mv -f "$IS_INSTANCE/config/jdbc/function/${DBFUNCTION}.xml.tmp" "$IS_INSTANCE/config/jdbc/function/${DBFUNCTION}.xml"
+            fi
+        elif [[ "$k" =~ ^IS_JDBCPOOL_.* ]]; then
+            # JDBC Pool
+            JDBC_POOL_PARAMETER=$(echo "$k" | cut -d "_" -f3)
+            JDBC_POOL_NAME=$(echo "$k" | cut -d "_" -f4)
+            if [ -e "$IS_INSTANCE/config/jdbc/pool/${JDBC_POOL_NAME,,}.xml" ]; then
+                echo "- Updating $JDBC_POOL_PARAMETER of JDBC Pool alias $JDBC_POOL_NAME"
+                if [[ "$JDBC_POOL_PARAMETER" == "URL" ]]; then
+                    JDBC_POOL_PARAMETER="dbURL"
+                    JDBC_POOL_VALUE="$v"
+                elif [[ "$JDBC_POOL_PARAMETER" == "USER" ]]; then
+                    JDBC_POOL_PARAMETER="userid"
+                    JDBC_POOL_VALUE="$v"
+                elif [[ "$JDBC_POOL_PARAMETER" == "PWD" ]]; then
+                    # Double encoding for byte
+                    JDBC_POOL_VALUE=$(echo -n "$v" | base64 -w0 | base64 -w0)
+                    xsltproc --stringparam pwd "$JDBC_POOL_VALUE" update-jdbcpool-pwd.xsl "$IS_INSTANCE/config/jdbc/pool/${JDBC_POOL_NAME,,}.xml" > "$IS_INSTANCE/config/jdbc/pool/${JDBC_POOL_NAME,,}.xml.tmp"
+                    mv -f "$IS_INSTANCE/config/jdbc/pool/${JDBC_POOL_NAME,,}.xml.tmp" "$IS_INSTANCE/config/jdbc/pool/${JDBC_POOL_NAME,,}.xml"
+                    continue
+                else
+                  echo "- Unknown parameter $JDBC_POOL_PARAMETER in variable $k"
+                  exit 1
+                fi
+                sed "s#{{KEY}}#$JDBC_POOL_PARAMETER#g" update-jdbcpool.xsl > update-jdbcpool.xsl.tmp
+                xsltproc --stringparam value "$JDBC_POOL_VALUE" update-jdbcpool.xsl.tmp "$IS_INSTANCE/config/jdbc/pool/${JDBC_POOL_NAME,,}.xml" > "$IS_INSTANCE/config/jdbc/pool/${JDBC_POOL_NAME,,}.xml.tmp"
+                mv -f "$IS_INSTANCE/config/jdbc/pool/${JDBC_POOL_NAME,,}.xml.tmp" "$IS_INSTANCE/config/jdbc/pool/${JDBC_POOL_NAME,,}.xml"
+                rm -f update-jdbcpool.xsl.tmp
             fi
         elif [[ "$k" =~ ^watt\..* ]]; then
             # Extended Settings
