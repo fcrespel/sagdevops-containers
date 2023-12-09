@@ -1,19 +1,22 @@
-# SoftwareAG containers
+# SoftwareAG containers (using Command Central)
 
 This repository contains templates to build containers for some **SoftwareAG webMethods** products:
 - Asset Build Environment
 - API Gateway
 - Broker
 - Command Central
+- Database Component Configurator
 - Integration Server
 - Microservices Runtime
 - My webMethods Server
 - Terracotta BigMemory Max
 - Universal Messaging
 
-It is inspired by the general layout and samples provided in the [SoftwareAG/sagdevops-templates](https://github.com/SoftwareAG/sagdevops-templates) repository, cleaned and simplified. Container images aim to be **production-ready** as much as possible, or to be used as stable base images to build upon. At this time, they have only been tested with the webMethods 10.5, 10.7 and 10.11 releases.
+It uses **Command Central** templates and is inspired by the general layout and samples provided in the [SoftwareAG/sagdevops-templates](https://github.com/SoftwareAG/sagdevops-templates) repository, cleaned and simplified. Container images aim to be **production-ready** as much as possible, or to be used as stable base images to build upon. At this time, they have only been tested with the webMethods 10.5, 10.7, 10.11 and 10.15 releases.
 
-These tools are provided as-is and without warranty or support. They do not constitute part of the Software AG product suite, and are not endorsed by SoftwareAG. Users are free to use, fork and modify them, subject to the license agreement.
+An alternate approach to building container images using the **SoftwareAG Installer** is also available in the [fcrespel/saginstaller-containers](https://github.com/fcrespel/saginstaller-containers) repository.
+
+These tools are provided as-is and without warranty or support. They do not constitute part of the Software AG product suite, and are not endorsed by SoftwareAG. Users are free to use, fork and modify them, subject to the license agreement. For official containers, see https://containers.softwareag.com.
 
 ## Prerequisites
 
@@ -30,9 +33,9 @@ Go to the `infrastructure` directory and prepare your environment:
 - Edit the `.env` file to adjust the webMethods release version and fill in your Empower credentials (be careful, never commit them to GitHub!). Alternatively, you may also set them in your terminal or CI tool with `export REPO_USERNAME=your-username` and `export REPO_PASSWORD=your-password`.
 - In the `cc-builder/target/licenses` subdirectory, create a `product_licenses.zip` file containing your license XML files. Alternatively, you may also set a `LICENSES_URL` environment variable to have it downloaded automatically during the build.
 
-Then execute `docker-compose build` from the `infrastructure` directory to build the following images:
+Then execute `docker compose build` from the `infrastructure` directory to build the following images:
 
-- `base`: a simple CentOS 7 base layer with the `/opt/softwareag` install directory and `sagadmin` system user.
+- `base`: a simple CentOS 7 or RedHat UBI 8 base layer with the `/opt/softwareag` install directory and `sagadmin` system user.
 - `java`: an image with the JVM provided with SoftwareAG products, built on top of the `base` image. This image is used to share the JVM layer between subsequent product images.
 - `cc-server`: this image includes Command Central and Platform Manager (SPM) in `/opt/sagtools`, which allow installing additional products according to templates.
 - `cc-node`: this image contains an initial `/opt/softwareag` directory with infrastructure components such as the JVM, shared libraries and SPM.
@@ -47,7 +50,7 @@ Go to the `containers` directory and prepare your environment:
 - Edit the `.env` file to adjust the webMethods release version and fill in your Empower credentials (be careful, never commit them to GitHub!). Alternatively, you may also set them in your terminal or CI tool with `export REPO_USERNAME=your-username` and `export REPO_PASSWORD=your-password`.
 - If you didn't provide licenses during the infrastructure build, you may set a `LICENSES_URL` environment variable to have it downloaded automatically during the build.
 
-Then execute `docker-compose build <product>` to create an image for one of the following products:
+Then execute `docker compose build <product>` to create an image for one of the following products:
 
 - `hello-world`: a simple Hello World showing build arguments and environment variables.
 - `abe`: Asset Build Environment
@@ -81,9 +84,9 @@ Once a product image is built, you may run it anywhere with Docker or container 
 
 ### Local testing
 
-To test product images locally, go to the `containers` directory and execute `docker-compose up -d <product>` with the same product names as described above. Refer to the `docker-compose.yml` file to see which ports are available.
+To test product images locally, go to the `containers` directory and execute `docker compose up -d <product>` with the same product names as described above. Refer to the `docker compose.yml` file to see which ports are available.
 
-You may also start the Command Central container with `docker-compose up -d cc`. If you start it before other containers, and if you set environment variable `CC_AUTO_REGISTER=1`, each product container will automatically register to it during startup. This can be useful to inspect the various configuration parameters supported by each product and export this configuration to YAML templates.
+You may also start the Command Central container with `docker compose up -d cc`. If you start it before other containers, and if you set environment variable `CC_AUTO_REGISTER=1`, each product container will automatically register to it during startup. This can be useful to inspect the various configuration parameters supported by each product and export this configuration to YAML templates.
 
 ### Deployment
 
